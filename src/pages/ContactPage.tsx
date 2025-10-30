@@ -118,7 +118,7 @@ export function ContactPage() {
     <div className="bg-off-white py-20 md:py-28">
       <SEOHead
         title="Contact Antek Automation | AI Automation Agency UK | Free Audit"
-        description="Contact Antek Automation: Book your free automation audit. Leading AI automation agency UK - AI chatbots, voice systems, workflow automation solutions."
+        description="Talk to us about AI automation | Capture every customer call 24/7 | Expert setup & support for UK service businesses | Free consultation"
         path="/contact"
         breadcrumbs={breadcrumbs}
       />
@@ -135,15 +135,26 @@ export function ContactPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           <Card>
             <h3 className="font-black text-lg uppercase text-charcoal mb-2">Email</h3>
-            <p className="text-sm sm:text-base text-charcoal break-words">hello@antekautomation.com</p>
+            <a href="mailto:hello@antekautomation.com" className="text-sm sm:text-base text-terracotta hover:underline break-words font-bold">
+              hello@antekautomation.com
+            </a>
           </Card>
           <Card>
             <h3 className="font-black text-lg uppercase text-charcoal mb-2">Phone</h3>
-            <p className="text-sm sm:text-base text-charcoal">0333 335 7920</p>
+            <a href="tel:03330389960" className="text-sm sm:text-base text-terracotta hover:underline font-bold">
+              03330 389960
+            </a>
           </Card>
           <Card>
-            <h3 className="font-black text-lg uppercase text-charcoal mb-2">Location</h3>
-            <p className="text-sm sm:text-base text-charcoal">Hampshire, United Kingdom</p>
+            <h3 className="font-black text-lg uppercase text-charcoal mb-2">Address</h3>
+            <a
+              href="https://maps.google.com/?q=Chantry+House+38+Chantry+Way+Andover+SP10+1LZ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm sm:text-base text-terracotta hover:underline break-words font-bold"
+            >
+              Chantry House, 38 Chantry Way, Andover, SP10 1LZ
+            </a>
           </Card>
         </div>
 

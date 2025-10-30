@@ -36,7 +36,7 @@ export function WorkflowAutomationPage() {
     <div className="bg-off-white">
       <SEOHead
         title="Workflow Automation | Business Process Automation | Antek Automation UK"
-        description="Workflow Automation & Business Process Automation by Antek Automation: Save 20hrs/week, streamline operations. AI automation agency for UK service businesses."
+        description="Automate repetitive tasks & eliminate manual work | Connect your business tools | Save hours every week | Transform operations for UK service businesses"
         path="/services/workflow-automation"
         breadcrumbs={breadcrumbs}
         schema={serviceSchema}

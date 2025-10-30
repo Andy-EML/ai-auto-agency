@@ -51,12 +51,14 @@ Location pages use a slug-based pattern (e.g., `/locations/london-ai-automation`
   - `HomePage.tsx`: Landing page with hero, services overview, industries
   - `ContactPage.tsx`: Contact form with webhook integration
   - `AIChatbotsPage.tsx`: Dedicated service page for AI chatbot solutions
-  - `AIVoiceAssistantsPage.tsx`: Dedicated service page for voice AI
+  - `AIVoiceAssistantsPage.tsx`: Dedicated service page for voice AI (includes ElevenLabs voice chat demo)
   - `WorkflowAutomationPage.tsx`: Dedicated service page for automation
   - `LocationPage.tsx`: Dynamic location-specific landing pages (receives citySlug prop)
 - **Components** (`src/components/`): Reusable UI components
   - `ChatbotWidget.tsx`: Persistent chatbot that appears on all pages
-  - `Navigation.tsx` & `Footer.tsx`: Global layout components
+  - `VoiceChat.tsx`: Modal voice chat integration with ElevenLabs agent (demo on AIVoiceAssistantsPage)
+  - `Navigation.tsx`: Global header with responsive menu (mobile: hamburger icon that toggles dropdown)
+  - `Footer.tsx`: Global footer with links and copyright info
   - `Button.tsx`, `Card.tsx`, `Icon.tsx`: Design system primitives
 
 ### Type Definitions
@@ -88,7 +90,7 @@ Letter Spacing: tight-xl (-2px), tight-lg (-1px)
 The site integrates with n8n webhooks via environment variables:
 
 **Environment Variables:**
-Create a `.env` file in the root directory with the following variables:
+Create a `.env` file in the root directory with the following variables. A template is available in `.env.example`:
 ```
 VITE_CONTACT_WEBHOOK_URL=https://your-n8n-instance.com/webhook/contact
 VITE_CHATBOT_WEBHOOK_URL=https://your-n8n-instance.com/webhook/chatbot
@@ -187,10 +189,10 @@ VITE_SUPABASE_ANON_KEY=               # Optional: Supabase anonymous key
 - `src/pages/LocationPage.tsx` - Dynamic location pages (receives `citySlug` prop from route)
 
 ### Components
-- `src/components/Navigation.tsx` - Global header with logo, nav links, services dropdown, responsive menu
-- `src/components/Footer.tsx` - Global footer with links, copyright info
+- `src/components/Navigation.tsx` - Global header with logo, nav links, services dropdown. Mobile behavior: hamburger menu icon that toggles visibility of nav links in a dropdown
+- `src/components/Footer.tsx` - Global footer with links and copyright info
 - `src/components/ChatbotWidget.tsx` - AI chatbot widget (persistent, all pages, webhook-driven, auto-opens first visit)
-- `src/components/VoiceChat.tsx` - Voice chat modal with ElevenLabs agent integration
+- `src/components/VoiceChat.tsx` - Voice chat modal with ElevenLabs agent integration (triggered via `openVoiceChat` custom event)
 - `src/components/Button.tsx` - Button primitive: `variant="primary"` or `variant="secondary"`, brutalist styling
 - `src/components/Card.tsx` - Card primitive: `hover` prop enables translate + shadow effect on hover
 - `src/components/Icon.tsx` - Icon wrapper component using lucide-react

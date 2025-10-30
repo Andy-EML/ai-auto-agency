@@ -42,7 +42,7 @@ export function AIVoiceAssistantsPage() {
     <div className="bg-off-white">
       <SEOHead
         title="Voice Automation Systems | AI Phone Agents | Antek Automation UK"
-        description="Voice Automation Systems by Antek Automation: AI phone agents answer calls 24/7, book appointments. 40% more leads for UK service businesses."
+        description="AI voice agents that answer calls 24/7 | Book appointments automatically | Never miss a call again | Boost revenue for UK service businesses"
         path="/services/ai-voice-assistants"
         breadcrumbs={breadcrumbs}
         schema={serviceSchema}

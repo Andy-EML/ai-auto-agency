@@ -12,20 +12,26 @@ const navigate = (path: string) => {
 
 export function HomePage() {
   const [isVoiceChatOpen, setIsVoiceChatOpen] = useState(false);
-  const organizationSchema = {
+  const organisationSchema = {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'ProfessionalService'],
     name: 'Antek Automation',
     description: 'AI Automation Agency UK specializing in business automation for service businesses',
     url: 'https://aiautomationagencyuk.com',
     logo: 'https://aiautomationagencyuk.com/logo.svg',
+    telephone: '+443330389960',
+    email: 'hello@antekautomation.com',
     areaServed: {
       '@type': 'Country',
       name: 'United Kingdom',
     },
     serviceType: ['AI Automation', 'Business Process Automation', 'Workflow Automation'],
+    priceRange: '£500+',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: 'Chantry House, 38 Chantry Way',
+      addressLocality: 'Andover',
+      postalCode: 'SP10 1LZ',
       addressCountry: 'GB',
     },
   };
@@ -34,9 +40,9 @@ export function HomePage() {
     <div className="bg-off-white">
       <SEOHead
         title="Antek Automation | AI Automation Agency UK | Business Growth"
-        description="Antek Automation: Leading AI automation agency UK. We deliver automation solutions that boost leads 40% & save 20hrs/week for service businesses."
+        description="Missing calls = lost customers | AI voice assistants & chatbots capture every lead 24/7 | UK automation agency for service businesses"
         path="/"
-        schema={organizationSchema}
+        schema={organisationSchema}
         keywords="ai automation agency uk, automation agency, ai automation agency, business automation uk, workflow automation, ai chatbots, voice automation systems"
       />
       <section className="bg-warm-beige border-b-3 border-charcoal">

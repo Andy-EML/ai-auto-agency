@@ -75,14 +75,29 @@ export function Footer() {
           <div>
             <h4 className="font-black uppercase text-off-white text-sm md:text-base mb-4">Contact</h4>
             <ul className="space-y-3">
-              <li className="text-off-white text-sm md:text-base break-words">
-                Email: hello@antekautomation.com
+              <li className="text-off-white text-sm md:text-base">
+                <span className="font-bold">Email:</span>{' '}
+                <a
+                  href="mailto:hello@antekautomation.com"
+                  className="text-terracotta hover:underline"
+                >
+                  hello@antekautomation.com
+                </a>
               </li>
               <li className="text-off-white text-sm md:text-base">
-                Phone: 0333 335 7920
+                <span className="font-bold">Phone:</span>{' '}
+                <a
+                  href="tel:03330389960"
+                  className="text-terracotta hover:underline"
+                >
+                  03330 389960
+                </a>
               </li>
               <li className="text-off-white text-sm md:text-base">
-                Hampshire, United Kingdom
+                <span className="font-bold">Address:</span>{' '}
+                <span className="text-off-white">
+                  Chantry House, 38 Chantry Way, Andover, SP10 1LZ
+                </span>
               </li>
             </ul>
           </div>
