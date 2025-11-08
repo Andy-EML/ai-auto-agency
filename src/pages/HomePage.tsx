@@ -17,8 +17,8 @@ export function HomePage() {
     '@type': ['Organization', 'ProfessionalService'],
     name: 'Antek Automation',
     description: 'AI Automation Agency UK specializing in business automation for service businesses',
-    url: 'https://aiautomationagencyuk.com',
-    logo: 'https://aiautomationagencyuk.com/logo.svg',
+    url: 'https://www.aiautomationagencyuk.com',
+    logo: 'https://www.aiautomationagencyuk.com/logo.svg',
     telephone: '+443330389960',
     email: 'hello@antekautomation.com',
     areaServed: {
@@ -62,8 +62,8 @@ export function HomePage() {
                 Trusted AI Automation Agency UK • 40% More Leads • 20 Hours Saved Weekly
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button variant="primary" onClick={() => navigate('/contact')}>Book Free Automation Audit</Button>
-                <Button variant="secondary" onClick={() => setIsVoiceChatOpen(true)}>See Live Demo</Button>
+                <Button variant="primary" onClick={() => setIsVoiceChatOpen(true)}>Chat with Our AI Agent</Button>
+                <Button variant="secondary" onClick={() => navigate('/contact')}>Book Free Automation Audit</Button>
               </div>
             </div>
             <div className="relative">

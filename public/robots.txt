@@ -12,7 +12,7 @@ Disallow: /dist/
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://aiautomationagencyuk.com/sitemap.xml
+Sitemap: https://www.aiautomationagencyuk.com/sitemap.xml
 
 # Google Search Console specific
 User-agent: Googlebot

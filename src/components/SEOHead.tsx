@@ -61,13 +61,13 @@ export function SEOHead({ title, description, path, breadcrumbs, schema, ogImage
       canonicalLink.setAttribute('rel', 'canonical');
       document.head.appendChild(canonicalLink);
     }
-    canonicalLink.setAttribute('href', `https://aiautomationagencyuk.com${path}`);
+    canonicalLink.setAttribute('href', `https://www.aiautomationagencyuk.com${path}`);
 
     // Set or update Open Graph tags
     const ogTags = [
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
-      { property: 'og:url', content: `https://aiautomationagencyuk.com${path}` },
+      { property: 'og:url', content: `https://www.aiautomationagencyuk.com${path}` },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Antek Automation' },
       { property: 'og:locale', content: 'en_GB' },
@@ -116,7 +116,7 @@ export function SEOHead({ title, description, path, breadcrumbs, schema, ogImage
           '@type': 'ListItem',
           position: index + 1,
           name: item.name,
-          item: `https://aiautomationagencyuk.com${item.url}`,
+          item: `https://www.aiautomationagencyuk.com${item.url}`,
         })),
       };
 

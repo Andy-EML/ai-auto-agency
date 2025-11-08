@@ -28,6 +28,18 @@ npm run build
 npm run preview
 ```
 
+**Useful command sequences:**
+```bash
+# Quick check before committing (run in order)
+npm run typecheck && npm run lint && npm run build
+
+# Full dev setup after cloning
+npm install && npm run dev
+
+# Test production build locally before deploying
+npm run build && npm run preview
+```
+
 ## Architecture
 
 ### Routing
@@ -145,6 +157,7 @@ trackEvent('chatbot_message', 'engagement', 'user_message', 1);
 - Response handling: Expects either `{ reply: "string" }` or `{ output: "string" }` format. Handles both direct objects and array responses from n8n (uses first element if array).
 - Fallback message shown if webhook unavailable or fails
 - Loading indicator with animated dots while waiting for response
+- Analytics tracked: Auto-open event and user message interactions (via `trackEvent()` in ChatbotWidget)
 
 **Contact Form:**
 - Sends POST to `VITE_CONTACT_WEBHOOK_URL`
@@ -190,6 +203,55 @@ trackEvent('chatbot_message', 'engagement', 'user_message', 1);
 9. **Code Splitting & Lazy Loading** - Pages and ChatbotWidget are lazy-loaded via React.lazy(). Reduces initial bundle size and speeds up first page load.
 
 10. **Vendor Chunk Splitting** - Separate chunks for React, icons, and voice libraries allow better caching and parallel downloads.
+
+## Component Patterns & Best Practices
+
+### State Management Pattern
+The app uses simple, lightweight state management without Redux or Context API:
+- **Component-level state**: Use `useState()` for component-specific state (e.g., form inputs in ContactPage)
+- **Global events**: Use custom `window.dispatchEvent()` for global UI triggers (e.g., opening chatbot, voice chat)
+- **localStorage**: Use for persistent session state (e.g., `chatbot_visited` flag, user preferences)
+- **Props**: Pass data down from parent to child components. Keep prop drilling minimal by lifting state only as high as needed.
+
+### Event Patterns
+Create custom events for cross-component communication:
+```typescript
+// Dispatch event
+window.dispatchEvent(new Event('openChatbot'));
+
+// Listen to event
+window.addEventListener('openChatbot', () => {
+  // Handle event
+});
+```
+
+Common custom events:
+- `openChatbot` - Open the chatbot widget
+- `openVoiceChat` - Open voice chat modal
+- `contactFormSubmitted` - Form submission completed
+
+### Page Component Pattern
+All page components follow this structure:
+1. Import `SEOHead` for meta tags and schema
+2. Define page layout and content
+3. Return JSX with `SEOHead` at the top
+4. Keep API calls and webhooks in effect hooks or event handlers
+
+Example:
+```typescript
+export function MyPage() {
+  return (
+    <>
+      <SEOHead
+        title="Page Title"
+        description="Page meta description"
+        schema={/* JSON-LD */}
+      />
+      {/* Page content */}
+    </>
+  );
+}
+```
 
 ## Common Patterns & State Management
 
@@ -359,6 +421,26 @@ Before committing code, ensure:
 5. Verify no secrets (API keys, tokens) are committed
 6. Update CLAUDE.md or relevant docs if architecture changes
 
+## Debugging & Monitoring
+
+### Browser DevTools
+- **Network Tab**: Monitor webhook requests (Contact form, Chatbot messages). Check for failed requests, latency, and response payloads.
+- **Console Tab**: Look for React warnings, TypeScript errors, or failed imports.
+- **Application Tab**: Check `localStorage` for `chatbot_visited` flag and any session data.
+- **Performance Tab**: Monitor FCP (First Contentful Paint), LCP (Largest Contentful Paint), and CLS (Cumulative Layout Shift).
+
+### Google Analytics Debugging
+- Visit `https://antekautomation.co.uk` and check Analytics real-time data
+- Verify page views appear in Google Analytics dashboard (may have 24h delay)
+- Test custom events with `gtag('event', 'test_event')` in browser console
+- Use "DebugView" in Google Analytics to see real-time event stream without delay
+
+### Webhook Debugging
+- Use browser DevTools Network tab to capture webhook requests/responses
+- Test webhook URLs directly with curl before deploying
+- Check n8n webhook logs to see if payloads are arriving
+- Verify environment variables are loaded: Open dev console and check `window.__VITE_WEBHOOK_URLS` or similar (requires exposing via Vite config)
+
 ## Common Development Tasks
 
 ### Hot Module Reload (HMR) Not Working
@@ -406,6 +488,25 @@ curl -X POST https://your-webhook-url \
 - Run `npm run lint` to see all ESLint violations
 - React Hooks rules are enforced - ensure hooks called at top level in components
 - Unused imports/variables will cause errors in strict mode
+
+### Build Failures
+- Clear `.cache` and `node_modules` if build fails: `rm -rf node_modules .cache && npm install`
+- If Vite fails during build, check that all imports use correct paths (relative imports for local modules)
+- Verify no circular dependencies by checking import chains
+- Check `dist/` folder exists and has proper file structure before deploying
+
+## Git Workflow
+
+**Branch Strategy:**
+- Main branch (`main`) is production-ready and deployed
+- Create feature branches from `main` for new work: `git checkout -b feature/your-feature`
+- Push branches and create pull requests for review before merging to `main`
+
+**Committing Changes:**
+- Run pre-commit checklist before creating commits (see "Pre-Commit Checklist" below)
+- Use descriptive commit messages that explain the "why"
+- Example: `git commit -m "Add Hampshire location page with SEO metadata"`
+- Avoid committing sensitive files (`.env`, credentials, tokens)
 
 ## TypeScript Configuration
 
@@ -488,6 +589,19 @@ npm run preview    # Preview production build locally
   - **Netlify**: Auto-configures this for SPAs, or use `netlify.toml` with rewrite rule
   - **Other hosts**: Configure 404 → index.html rewrite or enable trailing slash rewrites
 - Environment variables must be set at build time via `.env` file (or via platform-specific environment variable UI for build-time secrets)
+
+**Pre-Deployment Checklist:**
+1. Run full test suite: `npm run typecheck && npm run lint && npm run build`
+2. Verify production build locally: `npm run preview` (check at `http://localhost:4173`)
+3. Test all critical flows:
+   - Contact form submission (check webhook is accessible)
+   - Chatbot interaction (verify chatbot webhook URL is correct)
+   - Navigation between service pages
+   - Location pages load correctly
+   - Mobile menu works
+4. Check that all environment variables are set in deployment platform
+5. Verify no console errors or warnings in production build
+6. Test on multiple browsers: Chrome, Firefox, Safari, Edge
 
 ## TypeScript Strictness
 
