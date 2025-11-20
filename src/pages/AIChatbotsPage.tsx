@@ -2,6 +2,7 @@ import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+import { ChatbotDemoButton } from '../components/ChatbotDemoButton';
 
 const navigate = (path: string) => {
   window.history.pushState(null, '', path);
@@ -55,11 +56,11 @@ export function AIChatbotsPage() {
             <p className="text-lg text-charcoal leading-normal mb-8">
               Our AI automation agency delivers intelligent chatbots that capture leads, answer questions, and book appointments 24/7. Antek Automation helps UK service businesses capture 40% more leads automatically.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="primary" onClick={() => navigate('/contact')}>
-                Get Started
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+              <ChatbotDemoButton onClick={() => window.dispatchEvent(new Event('openChatbot'))} />
+              <Button variant="secondary" onClick={() => navigate('/contact')}>
+                Get Your Chatbot →
               </Button>
-              <Button variant="secondary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>See Demo</Button>
             </div>
           </div>
         </div>

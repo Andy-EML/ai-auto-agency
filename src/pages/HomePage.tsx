@@ -1,8 +1,9 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
+import { VoiceDemoButton } from '../components/VoiceDemoButton';
 
 // Lazy load VoiceChat (only needed when user clicks demo button)
 const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
@@ -14,6 +15,16 @@ const navigate = (path: string) => {
 
 export function HomePage() {
   const [isVoiceChatOpen, setIsVoiceChatOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOpenVoiceChat = () => {
+      setIsVoiceChatOpen(true);
+    };
+
+    window.addEventListener('openVoiceChat', handleOpenVoiceChat);
+    return () => window.removeEventListener('openVoiceChat', handleOpenVoiceChat);
+  }, []);
+
   const organisationSchema = {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'ProfessionalService'],
@@ -63,9 +74,9 @@ export function HomePage() {
               <p className="text-sm md:text-base font-bold text-charcoal mb-6">
                 Trusted AI Automation Agency UK • 40% More Leads • 20 Hours Saved Weekly
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="primary" onClick={() => setIsVoiceChatOpen(true)}>Chat with Our AI Agent</Button>
-                <Button variant="secondary" onClick={() => navigate('/contact')}>Book Free Automation Audit</Button>
+              <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+                <VoiceDemoButton onClick={() => setIsVoiceChatOpen(true)} />
+                <Button variant="secondary" onClick={() => navigate('/contact')}>Book Free Consultation</Button>
               </div>
             </div>
             <div className="relative">

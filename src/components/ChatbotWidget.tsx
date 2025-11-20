@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Send } from 'lucide-react';
 import { ChatMessage } from '../types';
+import { CONSTANTS } from '../constants';
 
 const CHATBOT_WEBHOOK_URL = import.meta.env.VITE_CHATBOT_WEBHOOK_URL || '';
 
@@ -9,31 +10,30 @@ export function ChatbotWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [sessionId] = useState(() => `${CONSTANTS.SESSION_ID_PREFIX}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
-  const [showAnimation, setShowAnimation] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const hasVisited = localStorage.getItem('chatbot_visited');
+    const hasVisited = localStorage.getItem(CONSTANTS.CHATBOT_VISITED_KEY);
     if (!hasVisited && !hasAutoOpened) {
       const timer = setTimeout(() => {
         setIsOpen(true);
         setHasAutoOpened(true);
-        localStorage.setItem('chatbot_visited', 'true');
+        localStorage.setItem(CONSTANTS.CHATBOT_VISITED_KEY, 'true');
 
         const welcomeMessage: ChatMessage = {
           id: `msg_${Date.now()}`,
           sessionId,
-          message: "Hello! I'm Antek AI. How can I help you automate your business today?",
+          message: CONSTANTS.CHATBOT_WELCOME_MESSAGE,
           timestamp: new Date().toISOString(),
           pageUrl: window.location.href,
-          source: 'website_chatbot',
+          source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT,
           isBot: true,
         };
         setMessages([welcomeMessage]);
-      }, 5000);
+      }, CONSTANTS.CHATBOT_AUTO_OPEN_DELAY_MS);
 
       return () => clearTimeout(timer);
     }
@@ -47,10 +47,10 @@ export function ChatbotWidget() {
         const welcomeMessage: ChatMessage = {
           id: `msg_${Date.now()}`,
           sessionId,
-          message: "Hello! I'm Antek AI. How can I help you automate your business today?",
+          message: CONSTANTS.CHATBOT_WELCOME_MESSAGE,
           timestamp: new Date().toISOString(),
           pageUrl: window.location.href,
-          source: 'website_chatbot',
+          source: CONSTANTS.WEBHOOK_SOURCE_CHATBOT,
           isBot: true,
         };
         setMessages([welcomeMessage]);
@@ -64,24 +64,6 @@ export function ChatbotWidget() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  // Animation on/off cycle for attention-grabbing effect
-  useEffect(() => {
-    if (isOpen) {
-      setShowAnimation(false);
-      return;
-    }
-
-    // Show animation for 3 seconds, then hide for 4 seconds, repeat
-    const animationInterval = setInterval(() => {
-      setShowAnimation((prev) => !prev);
-    }, 3500);
-
-    // Start with animation showing
-    setShowAnimation(true);
-
-    return () => clearInterval(animationInterval);
-  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen && !isLoading) {
@@ -199,20 +181,6 @@ export function ChatbotWidget() {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 w-15 h-15 bg-terracotta border-3 border-charcoal shadow-brutal-sm rounded-sm flex items-center justify-center hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-brutal transition-all duration-200 z-50 ${
-          showAnimation && !isOpen ? 'animate-jitter-pulse' : ''
-        }`}
-        aria-label="Open chat"
-      >
-        {isOpen ? (
-          <X className="w-7 h-7 text-off-white" />
-        ) : (
-          <span className="text-2xl font-black text-off-white">C</span>
-        )}
-      </button>
-
       {isOpen && (
         <div className="fixed bottom-24 left-4 right-4 md:bottom-24 md:right-6 md:left-auto w-auto md:w-[400px] max-h-[calc(100vh-150px)] md:h-[600px] bg-off-white border-3 border-charcoal shadow-brutal-chat flex flex-col z-50">
           <div className="bg-warm-beige border-b-3 border-charcoal p-4 flex items-center justify-between">
@@ -220,6 +188,13 @@ export function ChatbotWidget() {
               <h3 className="font-black text-xl uppercase">Antek AI</h3>
               <p className="text-xs text-charcoal">Always here to help</p>
             </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-charcoal hover:text-terracotta transition-colors p-2"
+              aria-label="Close chat"
+            >
+              <X className="w-6 h-6" />
+            </button>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-off-white">

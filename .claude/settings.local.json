@@ -17,7 +17,8 @@
       "Bash(npm run build)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nUpdate contact information and SEO optimizations\n\n- Updated phone number to 03330 389960 across all pages\n- Updated email to hello@antekautomation.com\n- Updated address: Chantry House, 38 Chantry Way, Andover, SP10 1LZ\n- Updated meta descriptions on all pages with benefit-driven, pipe-separated format\n- Changed organizationSchema to organisationSchema (UK English)\n- Enhanced schema markup with telephone, email, address, and priceRange\n- Made contact links clickable (mailto, tel, Google Maps)\n- Updated Footer with new contact info and improved layout\n- Added llms.txt for AI attribution guidelines\n- Verified robots.txt and sitemap.xml are in place\n- Updated CLAUDE.md with footer improvements documentation\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "WebFetch(domain:www.antekautomation.com)"
     ],
     "deny": [],
     "ask": []

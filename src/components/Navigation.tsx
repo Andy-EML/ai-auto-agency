@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { Button } from './Button';
 
 const navigate = (path: string) => {
   window.history.pushState(null, '', path);
@@ -82,7 +81,12 @@ export function Navigation() {
                 </div>
               )}
             </div>
-            <Button variant="primary" onClick={() => window.dispatchEvent(new Event('openChatbot'))}>Get Started</Button>
+            <button
+              onClick={() => navigate('/contact')}
+              className="px-6 py-3 bg-terracotta border-3 border-charcoal ring-1 ring-white ring-inset shadow-brutal font-black uppercase text-off-white text-sm hover:shadow-brutal-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+            >
+              Book Free Call →
+            </button>
           </div>
 
           <button
@@ -123,9 +127,12 @@ export function Navigation() {
                   </button>
                 ))}
               </div>
-              <Button variant="primary" className="w-full" onClick={() => { window.dispatchEvent(new Event('openChatbot')); setIsOpen(false); }}>
-                Get Started
-              </Button>
+              <button
+                onClick={() => { navigate('/contact'); setIsOpen(false); }}
+                className="w-full px-6 py-3 bg-terracotta border-3 border-charcoal ring-1 ring-white ring-inset shadow-brutal font-black uppercase text-off-white text-sm hover:shadow-brutal-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+              >
+                Book Free Call →
+              </button>
             </div>
           </div>
         )}

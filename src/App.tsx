@@ -7,12 +7,17 @@ import { initializeAnalytics, trackPageView } from './utils/analytics';
 // Lazy load chatbot widget (non-critical for initial load, loads after 5s anyway)
 const ChatbotWidget = lazy(() => import('./components/ChatbotWidget').then(m => ({ default: m.ChatbotWidget })));
 
+// Floating chat button
+import { FloatingChatButton } from './components/FloatingChatButton';
+
 // Lazy load service pages (non-critical for initial load)
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 const AIChatbotsPage = lazy(() => import('./pages/AIChatbotsPage').then(m => ({ default: m.AIChatbotsPage })));
 const AIVoiceAssistantsPage = lazy(() => import('./pages/AIVoiceAssistantsPage').then(m => ({ default: m.AIVoiceAssistantsPage })));
 const WorkflowAutomationPage = lazy(() => import('./pages/WorkflowAutomationPage').then(m => ({ default: m.WorkflowAutomationPage })));
 const LocationPage = lazy(() => import('./pages/LocationPage').then(m => ({ default: m.LocationPage })));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
+const TermsOfBusinessPage = lazy(() => import('./pages/TermsOfBusinessPage').then(m => ({ default: m.TermsOfBusinessPage })));
 
 // Global navigate function for easy access in onClick handlers
 const navigate = (path: string) => {
@@ -62,6 +67,10 @@ function App() {
         return <AIVoiceAssistantsPage />;
       case '/services/workflow-automation':
         return <WorkflowAutomationPage />;
+      case '/privacy-policy':
+        return <PrivacyPolicyPage />;
+      case '/terms-of-business':
+        return <TermsOfBusinessPage />;
       default:
         return <HomePage />;
     }
@@ -79,6 +88,7 @@ function App() {
       <Suspense fallback={null}>
         <ChatbotWidget />
       </Suspense>
+      <FloatingChatButton onClick={() => window.dispatchEvent(new Event('openChatbot'))} />
     </div>
   );
 }

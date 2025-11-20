@@ -103,6 +103,23 @@ Environment variables are defined in `.env` at the root directory. A `.env.examp
 
 **Important:** Environment variables are read at build time by Vite. Changes to `.env` require restarting the dev server (`npm run dev`).
 
+### .env.example Template
+
+The `.env.example` file documents which variables are required, optional, and their expected formats:
+
+```bash
+# REQUIRED: Webhook integrations (site will not function without these)
+VITE_CONTACT_WEBHOOK_URL=https://your-n8n-instance.com/webhook/contact
+VITE_CHATBOT_WEBHOOK_URL=https://your-n8n-instance.com/webhook/chatbot
+
+# OPTIONAL: External service integrations (site works without these)
+VITE_SUPABASE_URL=                    # Supabase project URL (unused in current version)
+VITE_SUPABASE_ANON_KEY=               # Supabase anonymous key (unused in current version)
+VITE_GA_MEASUREMENT_ID=               # Google Analytics ID (format: G-XXXXXXXXXX)
+```
+
+To set up locally, copy `.env.example` to `.env` and fill in at minimum the two webhook URLs.
+
 ### Webhook Integration
 
 The site integrates with n8n webhooks via environment variables:
@@ -186,7 +203,7 @@ trackEvent('chatbot_message', 'engagement', 'user_message', 1);
 
 1. **Pathname-Based Routing** - Uses `window.location.pathname` for clean, SEO-friendly client-side routing (not hash-based, not React Router). Requires SPA fallback on server (index.html serves all routes).
 
-2. **No Backend API** - All webhook communication goes directly to n8n. Enables serverless architecture.
+2. **Serverless Architecture** - This is a static, frontend-only application with no backend API server. All dynamic interactions (contact forms, chatbot messages) communicate directly with n8n webhooks. The site can be deployed to any static hosting service (Vercel, Netlify, AWS S3, etc.) without server infrastructure.
 
 3. **Centralized Types** (`src/types/index.ts`) - Single source of truth for all interfaces. Easier to maintain and refactor.
 
@@ -508,6 +525,42 @@ curl -X POST https://your-webhook-url \
 - Example: `git commit -m "Add Hampshire location page with SEO metadata"`
 - Avoid committing sensitive files (`.env`, credentials, tokens)
 
+### Git Quick Reference
+
+```bash
+# View status
+git status
+
+# Create and switch to feature branch
+git checkout -b feature/description
+
+# Add specific files
+git add src/pages/NewPage.tsx
+
+# Add all changes
+git add .
+
+# Commit with message
+git commit -m "Descriptive message explaining the change"
+
+# Push to remote
+git push -u origin feature/description
+
+# Create pull request (after pushing)
+gh pr create --title "PR title" --body "PR description"
+
+# Switch back to main and pull latest
+git checkout main
+git pull
+
+# View recent commits
+git log --oneline -10
+
+# View changes before committing
+git diff
+git diff --staged
+```
+
 ## TypeScript Configuration
 
 The project uses TypeScript project references:
@@ -546,17 +599,84 @@ ESLint is configured using the v9 flat config format (`eslint.config.js`):
 
 ## CSS & Styling
 
-**Global Styles** (`src/index.css`):
-- Tailwind CSS layers imported: `@tailwind base`, `@tailwind components`, `@tailwind utilities`
-- System font stack: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif`
-- Custom utilities: `.w-15` and `.h-15` (3.75rem)
+### CSS Architecture
 
-**Tailwind Custom Tokens** (`tailwind.config.js`):
-- Extended theme with custom colors (charcoal, warm-beige, soft-sage, muted-taupe, terracotta, off-white, success-green, peach, mid-gray)
-- Custom shadows: `shadow-brutal`, `shadow-brutal-sm`, `shadow-brutal-lg`, `shadow-brutal-xs`, `shadow-brutal-chat`, `shadow-brutal-msg`
-- Custom letter spacing: `tracking-tight-xl` (-2px), `tracking-tight-lg` (-1px)
-- Custom border width: `border-3` (3px)
-- No rounded corners by default (brutalist design aesthetic)
+The project uses **Tailwind CSS** with custom extensions for the neo-brutalist design:
+
+**File Structure:**
+- `src/index.css` - Global styles and Tailwind layers
+- `tailwind.config.js` - Theme configuration with custom tokens
+- `postcss.config.js` - PostCSS pipeline (Tailwind, Autoprefixer)
+- Component files - Inline utility classes (no separate CSS files)
+
+**Tailwind Layers** (in `src/index.css`):
+```
+@tailwind base;          /* Reset, system font stack */
+@tailwind components;    /* Custom component classes if needed */
+@tailwind utilities;     /* All utility classes (default Tailwind + custom) */
+```
+
+### Global Styles
+
+**`src/index.css`:**
+- System font stack: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif`
+- Custom utilities: `.w-15` and `.h-15` (3.75rem = 60px)
+- Base font size: 16px (browser default)
+- No global resets beyond Tailwind base
+
+### Tailwind Custom Tokens
+
+**Custom Colors** (`tailwind.config.js`):
+- **Primary**: charcoal (#1A1A1A), warm-beige (#E8DFD0), terracotta (#D97757)
+- **Secondary**: soft-sage (#C5D8CC), muted-taupe, off-white (#FAF8F5)
+- **Semantic**: success-green, peach, mid-gray
+- All colors defined as hex values in `tailwind.config.js`
+
+**Custom Shadows** (brutalist aesthetic):
+- `shadow-brutal` (4px 4px, charcoal)
+- `shadow-brutal-sm` (2px 2px, charcoal)
+- `shadow-brutal-lg` (6px 6px, charcoal)
+- `shadow-brutal-xs` (1px 1px, charcoal)
+- `shadow-brutal-chat` (specialized for chat bubbles)
+- `shadow-brutal-msg` (specialized for messages)
+
+**Custom Border & Spacing:**
+- `border-3` - 3px borders (core brutalist style)
+- `tracking-tight-xl` (-2px letter spacing)
+- `tracking-tight-lg` (-1px letter spacing)
+
+**Design System Constraints:**
+- No rounded corners (hard edges only)
+- No opacity classes for colors (use full saturation)
+- Shadows always use charcoal, never soften with blur
+- Borders always 3px minimum for key elements
+
+### Styling Practices
+
+**Using Custom Classes:**
+```jsx
+// Primary button
+<button className="bg-terracotta text-off-white border-3 border-charcoal shadow-brutal">
+  Get Started
+</button>
+
+// Card with hover
+<div className="border-3 border-charcoal shadow-brutal hover:shadow-brutal-lg hover:-translate-y-0.5">
+  Content
+</div>
+
+// Heading
+<h1 className="text-3xl font-bold uppercase tracking-tight-xl text-charcoal">
+  Title
+</h1>
+```
+
+**When to Modify Styles:**
+1. Add new custom colors to `tailwind.config.js` colors section
+2. Add new shadows for specific components to `tailwind.config.js` theme.extend.boxShadow
+3. Use utility classes in JSX - avoid CSS files
+4. Test shadow and border consistency with neo-brutalist design
+5. Always test hover/active states on desktop and mobile
 
 ## Build & Deployment
 
