@@ -1,6 +1,5 @@
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
-import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
 import { ChatbotDemoButton } from '../components/ChatbotDemoButton';
 
@@ -16,264 +15,285 @@ export function AIChatbotsPage() {
     { name: 'AI Chatbots', url: '/services/ai-chatbots' },
   ];
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'AI Chatbots for UK Businesses',
+    provider: {
+      '@type': 'Organization',
+      name: 'Antek Automation',
+      url: 'https://www.aiautomationagencyuk.com',
+    },
+    description: 'AI chatbots for websites and WhatsApp. Captures enquiries, qualifies leads, answers common questions — while you\'re working. Built for UK service businesses.',
+    areaServed: 'GB',
+  };
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Where does the chatbot actually live?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'On your website, embedded as a chat widget. We can also set it up on WhatsApp if that\'s where most of your enquiries come from. Some clients use both.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What can it actually answer?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Whatever you train it on. Typically: what services you offer, which areas you cover, how pricing works, how to book, what happens next. The questions you answer every day.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What happens when someone asks something it can\'t answer?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It captures their contact details and flags it for you to follow up. It won\'t make something up or give wrong information — it\'ll say it doesn\'t have that answer and take a message.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can it replace my contact form?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'For most purposes, yes. It captures the same information but in a conversational way, which tends to get higher completion rates. You still get the details you need; the visitor gets a better experience.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How long does it take to build?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Usually 5–10 working days. We need to understand your business, what questions to answer and how, and then there\'s a testing phase before it goes live on your site.',
+        },
+      },
+    ],
+  };
+
   return (
     <div className="bg-off-white">
       <SEOHead
-        title="AI Chatbots | Antek Automation | AI Automation Agency UK"
-        description="AI chatbots that capture leads 24/7 | Answer FAQs & book appointments automatically | Never miss a customer inquiry again | UK service businesses"
+        title="AI Chatbots for UK Businesses | Antek Automation"
+        description="AI chatbots for websites and WhatsApp. Captures enquiries, qualifies leads, answers common questions — while you're working. Built for UK service businesses."
         path="/services/ai-chatbots"
         breadcrumbs={breadcrumbs}
-        keywords="ai chatbots, ai lead automation, chatbot for lead generation, customer service automation, conversational ai, ai chatbot for businesses"
+        schema={[serviceSchema, faqSchema]}
       />
-      {/* Hero Section */}
+
+      {/* Hero */}
       <section className="bg-warm-beige border-b-3 border-charcoal">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-wide text-charcoal mb-4 font-black">
-              AI LEAD AUTOMATION | 24/7 CHATBOTS | AI AUTOMATION AGENCY UK
+              Services → AI Chatbots
             </p>
-            <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              AI Chatbots for Lead Generation
+            <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-8 leading-tight">
+              AI Chatbots for UK Businesses
             </h1>
-            <p className="text-lg text-charcoal leading-normal mb-8">
-              Our AI automation agency delivers intelligent chatbots that capture leads, answer questions, and book appointments 24/7. Antek Automation helps UK service businesses capture 40% more leads automatically.
+            <p className="text-lg text-charcoal leading-normal mb-10">
+              Your website gets traffic at all hours. Most of it leaves without doing anything. A chatbot gives visitors somewhere to go — answers their questions, captures their details, qualifies whether they're a good fit. All while you're working on something else.
             </p>
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+            <div className="flex flex-col md:flex-row gap-4">
               <ChatbotDemoButton onClick={() => window.dispatchEvent(new Event('openChatbot'))} />
-              <Button variant="secondary" onClick={() => navigate('/contact')}>
-                Get Your Chatbot →
-              </Button>
+              <Button variant="secondary" onClick={() => navigate('/contact')}>Book a Call</Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What It Does */}
+      {/* Where It Lives */}
       <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              What It Does
+          <div className="max-w-3xl">
+            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-8">
+              Where It Lives
             </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card hover>
-              <Icon letter="L" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Capture Every Lead
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Visitors leave their details even when you're not available. No more missed opportunities from after-hours website traffic.
+            <div className="space-y-6 text-lg text-charcoal leading-normal">
+              <p>
+                On your website as a chat widget — the kind that appears in the bottom corner. Visitors can start a conversation without filling in a form or waiting for someone to pick up the phone.
               </p>
-            </Card>
-
-            <Card hover>
-              <Icon letter="Q" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Answer Common Questions
-              </h3>
-              <p className="text-charcoal leading-normal">
-                "What are your prices?" "Do you serve my area?" "What's your availability?" Your chatbot answers instantly so you don't have to.
+              <p>
+                On WhatsApp, if that's where your clients prefer to reach you. Some trades businesses and service businesses get more WhatsApp messages than website enquiries — the chatbot works there too.
               </p>
-            </Card>
-
-            <Card hover>
-              <Icon letter="C" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Book Appointments
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Integrates with your calendar to let customers book available time slots directly through the chat—no back-and-forth needed.
+              <p>
+                Some clients use both. Website for first contact, WhatsApp for ongoing communication.
               </p>
-            </Card>
-
-            <Card hover>
-              <Icon letter="F" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Qualify Leads
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Asks the right questions to understand customer needs, budget, and urgency so you can prioritize follow-ups that matter.
-              </p>
-            </Card>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Perfect For */}
+      {/* What It Handles */}
       <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Perfect For
+          <div className="max-w-3xl">
+            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-8">
+              What It Handles
             </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <span className="text-success-green text-2xl">✓</span>
-                  <p className="text-charcoal leading-normal">
-                    <strong>Service businesses with high inquiry volumes</strong> who can't answer every call or message instantly
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-success-green text-2xl">✓</span>
-                  <p className="text-charcoal leading-normal">
-                    <strong>Businesses losing leads outside office hours</strong> when customers browse your site at night or weekends
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <span className="text-success-green text-2xl">✓</span>
-                  <p className="text-charcoal leading-normal">
-                    <strong>Teams spending hours answering the same questions</strong> like pricing, service areas, and availability
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-success-green text-2xl">✓</span>
-                  <p className="text-charcoal leading-normal">
-                    <strong>Growing businesses that need to scale</strong> without hiring more admin staff
-                  </p>
-                </div>
-              </div>
-            </Card>
+            <div className="space-y-8">
+              <Card>
+                <h3 className="font-black text-xl uppercase text-charcoal mb-3">Answering Questions</h3>
+                <p className="text-charcoal leading-normal">
+                  What do you do, what areas do you cover, how much does it cost, how long does it take, what happens next. The questions you answer every day, handled without you.
+                </p>
+              </Card>
+              <Card>
+                <h3 className="font-black text-xl uppercase text-charcoal mb-3">Capturing Enquiries</h3>
+                <p className="text-charcoal leading-normal">
+                  Visitor says what they need. Chatbot asks the right follow-up questions. You get a summary with their contact details. No form, no friction, no lost enquiries because it was 11pm and no one was around.
+                </p>
+              </Card>
+              <Card>
+                <h3 className="font-black text-xl uppercase text-charcoal mb-3">Qualifying Leads</h3>
+                <p className="text-charcoal leading-normal">
+                  We build in the questions you'd ask yourself — budget, timeline, what they're actually looking for. By the time you follow up, you know whether it's worth a proper conversation.
+                </p>
+              </Card>
+              <Card>
+                <h3 className="font-black text-xl uppercase text-charcoal mb-3">Booking Appointments</h3>
+                <p className="text-charcoal leading-normal">
+                  If you want it to, it can link to your calendar and let visitors book directly. No back-and-forth. Works well for consultations, site visits, and discovery calls.
+                </p>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* What It Doesn't Replace */}
       <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              How It Works
+          <div className="max-w-3xl">
+            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-8">
+              What It Doesn't Replace
             </h2>
+            <div className="space-y-6 text-lg text-charcoal leading-normal">
+              <p>
+                It's not a replacement for a sales conversation. It handles first contact and qualification — you still close the job.
+              </p>
+              <p>
+                It won't handle complex queries that need real expertise or judgement. Those get flagged and passed to you. The chatbot knows the limits of what it knows.
+              </p>
+              <p>
+                It won't suit every business. If you have no website traffic and all your work comes through referrals, there's not much for it to do. Worth being honest about that rather than selling you something that won't move the needle.
+              </p>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-4 gap-8">
+      {/* How It Gets Built */}
+      <section className="bg-warm-beige border-y-3 border-charcoal py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="max-w-3xl">
+            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-8">
+              How It Gets Built
+            </h2>
+            <div className="space-y-6 text-lg text-charcoal leading-normal">
+              <p>
+                We start with a call to understand what questions it needs to answer, what information it should capture, and what tone fits your business. We don't use a generic template — it gets built specifically for you.
+              </p>
+              <p>
+                We write the responses, test it with likely scenarios, and run it past you before it goes live. If it doesn't sound right, we fix it. Usually live within 5–10 working days.
+              </p>
+              <p>
+                After launch we monitor how it's being used, refine responses based on real conversations, and keep it updated as your services or pricing changes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Who Uses This */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-12">
+            Who Uses This
+          </h2>
+          <div className="grid md:grid-cols-4 gap-6">
             {[
-              {
-                step: '1',
-                title: 'Discovery Call',
-                description: 'We learn about your services, common customer questions, and business goals. Takes 30 minutes.',
-              },
-              {
-                step: '2',
-                title: 'Build & Train',
-                description: 'We create your chatbot, train it on your business, and customise responses to match your brand.',
-              },
-              {
-                step: '3',
-                title: 'Install',
-                description: 'We add a small code snippet to your website. Works with any platform (WordPress, Wix, Squarespace, custom sites).',
-              },
-              {
-                step: '4',
-                title: 'Launch & Optimise',
-                description: 'Your chatbot starts capturing leads immediately. We monitor performance and optimise based on conversations.',
-              },
-            ].map((step) => (
-              <div key={step.step} className="text-center">
-                <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
-                  {step.step}
-                </div>
-                <h3 className="font-black text-xl uppercase text-charcoal mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-charcoal leading-normal">{step.description}</p>
-              </div>
+              { label: 'Tradespeople', desc: 'Website enquiries coming in while on site. Nothing gets missed.', href: '/who-we-help/tradespeople' },
+              { label: 'Lawyers', desc: 'First-contact qualification before the intake call.', href: '/who-we-help/lawyers' },
+              { label: 'Dental Practices', desc: 'Appointment requests handled online. Front desk gets breathing room.', href: '/who-we-help/dentists' },
+              { label: 'Consultants', desc: 'Qualifying enquiries before spending time on a discovery call.', href: '/who-we-help/consultants' },
+            ].map((item) => (
+              <button
+                key={item.href}
+                onClick={() => navigate(item.href)}
+                className="bg-white border-3 border-charcoal shadow-brutal p-8 text-left hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-brutal-lg transition-all duration-200 cursor-pointer w-full"
+              >
+                <h3 className="font-black text-xl uppercase text-charcoal mb-2">{item.label}</h3>
+                <p className="text-sm text-charcoal leading-normal">{item.desc}</p>
+              </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="bg-peach border-y-3 border-charcoal py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-6 md:px-12">
-          <Card>
-            <div className="border-l-4 border-charcoal pl-6">
-              <p className="text-lg text-charcoal leading-normal mb-4 italic">
-                "We were losing half our website leads because we couldn't respond fast enough. Now our chatbot captures details instantly and books appointments while we're on jobs. We've added £3,000 in monthly revenue just from after-hours inquiries."
-              </p>
-              <p className="font-black text-charcoal uppercase text-sm">
-                — Mike T., Plumbing Services, Manchester
-              </p>
-            </div>
-          </Card>
-        </div>
-      </section>
-
-      {/* What's Included */}
-      <section className="py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+      {/* FAQ */}
+      <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
           <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-12">
-            What's Included
+            Common Questions
           </h2>
-
-          <Card className="text-left">
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div>
-                <h3 className="font-black uppercase text-charcoal mb-4 text-sm">Features:</h3>
-                <ul className="space-y-3 text-charcoal">
-                  <li className="flex items-start space-x-2">
-                    <span className="text-success-green">✓</span>
-                    <span>Custom-trained chatbot for your business</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-success-green">✓</span>
-                    <span>Website integration (any platform)</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-success-green">✓</span>
-                    <span>Lead capture & email notifications</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-success-green">✓</span>
-                    <span>Calendar integration (optional)</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-success-green">✓</span>
-                    <span>Ongoing support and updates</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-peach border-3 border-charcoal p-6">
-                <h3 className="font-black uppercase text-charcoal mb-3 text-sm">ROI Example:</h3>
-                <p className="text-charcoal leading-normal text-sm">
-                  If your chatbot captures just <strong>2 extra leads per week</strong> at an average job value of <strong>£300</strong>, that's <strong>£2,400/month</strong> in additional revenue.
-                </p>
-                <p className="text-charcoal font-black mt-4">
-                  Most clients see ROI within the first month.
-                </p>
-              </div>
-            </div>
-
-            <Button variant="primary" className="w-full text-lg" onClick={() => navigate('/contact')}>
-              Get Your Custom Quote
-            </Button>
-          </Card>
+          <div className="max-w-3xl space-y-8">
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                Where does the chatbot actually live?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                On your website, embedded as a chat widget. We can also set it up on WhatsApp if that's where most of your enquiries come from. Some clients use both.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                What can it actually answer?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                Whatever you train it on. Typically: what services you offer, which areas you cover, how pricing works, how to book, what happens next. The questions you answer every day.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                What happens when someone asks something it can't answer?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                It captures their contact details and flags it for you to follow up. It won't make something up or give wrong information — it'll say it doesn't have that answer and take a message.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                Can it replace my contact form?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                For most purposes, yes. It captures the same information but in a conversational way, which tends to get higher completion rates. You still get the details you need; the visitor gets a better experience.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                How long does it take to build?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                Usually 5–10 working days. We need to understand your business, what questions to answer and how, and then there's a testing phase before it goes live on your site.
+              </p>
+            </Card>
+          </div>
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* CTA */}
       <section className="bg-charcoal py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-off-white mb-6">
-            Ready to Capture More Leads?
-          </h2>
-          <p className="text-lg text-off-white leading-normal mb-8">
-            Book a free consultation and we'll show you exactly how an AI chatbot can work for your business
+          <p className="text-lg text-off-white leading-normal mb-8 max-w-2xl mx-auto">
+            If you're losing enquiries to slow response times or out-of-hours gaps, book a 30-minute call. We'll tell you honestly whether a chatbot makes sense for your business.
           </p>
           <Button variant="primary" className="text-lg px-10" onClick={() => navigate('/contact')}>
-            Book Free Consultation
+            Book a Call →
           </Button>
         </div>
       </section>

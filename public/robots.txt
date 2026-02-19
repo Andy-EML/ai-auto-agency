@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
 Allow: /services/
+Allow: /who-we-help/
 Allow: /locations/
 Allow: /contact
+Allow: /about
+Allow: /case-studies
 Disallow: /admin/
 Disallow: /.env*
 Disallow: /node_modules/

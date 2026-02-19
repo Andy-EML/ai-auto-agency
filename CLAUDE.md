@@ -29,8 +29,15 @@ Client-side routing via `window.location.pathname` — no React Router. Routes d
 - `/` → HomePage (eagerly loaded)
 - `/contact` → ContactPage
 - `/services/ai-chatbots` → AIChatbotsPage
-- `/services/ai-voice-assistants` → AIVoiceAssistantsPage
+- `/services/ai-voice-agents` → AIVoiceAgentsPage
+- `/services/ai-voice-assistants` → AIVoiceAssistantsPage (Vercel 308 redirects to `/services/ai-voice-agents`)
 - `/services/workflow-automation` → WorkflowAutomationPage
+- `/who-we-help/tradespeople` → TradespeoplePage
+- `/who-we-help/lawyers` → LawyersPage
+- `/who-we-help/dentists` → DentistsPage
+- `/who-we-help/consultants` → ConsultantsPage
+- `/about` → AboutPage
+- `/case-studies` → CaseStudiesPage
 - `/privacy-policy` → PrivacyPolicyPage
 - `/terms-of-business` → TermsOfBusinessPage
 - `/locations/:citySlug` → LocationPage (dynamic, slug extracted from path)
@@ -115,16 +122,41 @@ Test webhooks locally with ngrok: `ngrok http 5678`, then update `.env` and rest
 1. Create `src/pages/NewPage.tsx` with `SEOHead` at top
 2. Add `const NewPage = lazy(...)` import in `src/App.tsx`
 3. Add route case to `renderPage()` in `App.tsx`
-4. Update `Navigation.tsx` if it needs a nav link
+4. Add metadata entry to `ROUTE_META` in `api/og.ts` for server-side OG tags
+5. Update `Navigation.tsx` if it needs a nav link
+
+## Adding Industry Pages ("Who We Help")
+
+1. Create `src/pages/IndustryPage.tsx` with `SEOHead` at top
+2. Add `const IndustryPage = lazy(...)` import in `src/App.tsx`
+3. Add route case `/who-we-help/slug` to `renderPage()` in `App.tsx`
+4. Add entry to `whoWeHelpLinks` array in `src/components/Navigation.tsx`
+5. Add metadata entry to `ROUTE_META` in `api/og.ts`
 
 ## Adding Location Pages
 
-Add city object to `src/data/cities.ts` — routing resolves automatically. No `App.tsx` changes needed. Cities appear in Footer automatically (split at index 4 between "Locations" and "More Locations").
+Add city object to `src/data/cities.ts` — routing resolves automatically. No `App.tsx` changes needed. Cities appear in Footer automatically. Also add the city slug to `LOCATION_META` in `api/og.ts` for server-side OG tags.
 
 ## TypeScript
 
 Strict mode enabled (`tsconfig.app.json`): `strict: true`, `noUnusedLocals`, `noUnusedParameters`. Run `npm run typecheck` before committing.
 
+## Server-Side OG Tags (Edge Function)
+
+`api/og.ts` is a Vercel Edge Function that injects `<title>`, meta description, OG tags, and canonical URL into `index.html` before serving. All non-asset requests route through it via `vercel.json` rewrites. When adding/changing pages, update both:
+- `SEOHead` props in the page component (client-side)
+- `ROUTE_META` or `LOCATION_META` in `api/og.ts` (server-side, for crawlers/social previews)
+
+Placeholders in `index.html`: `__OG_TITLE__`, `__OG_DESCRIPTION__`, `__OG_URL__`, `__CANONICAL_URL__`, `__PAGE_TITLE__`, `__META_DESCRIPTION__`.
+
 ## Build & Deployment
 
-Static SPA deployed to Vercel. `vercel.json` configures SPA fallback (all routes → `index.html`). Bundle uses manual chunk splitting: `vendor-react`, `vendor-icons`, `vendor-elevenlabs`. Source maps enabled in production.
+Static SPA deployed to Vercel. `vercel.json` configures:
+- **Rewrites:** All non-asset routes → `api/og` edge function (replaces simple SPA fallback)
+- **Redirects:** `/services/ai-voice-assistants` → `/services/ai-voice-agents` (permanent 308)
+- **Cache headers:** Assets/SVG/PNG = 1 year immutable; `index.html` = 1 hour
+- **Security headers:** `X-Content-Type-Options`, `X-Frame-Options`, `X-XSS-Protection`, `Referrer-Policy`
+
+Bundle uses manual chunk splitting: `vendor-react`, `vendor-icons`, `vendor-elevenlabs`. Terser minification with `drop_debugger: true`. Source maps enabled in production.
+
+No test framework is configured. Run `npm run typecheck && npm run lint && npm run build` as pre-commit validation.

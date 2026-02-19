@@ -10,14 +10,21 @@ const ChatbotWidget = lazy(() => import('./components/ChatbotWidget').then(m => 
 // Floating chat button
 import { FloatingChatButton } from './components/FloatingChatButton';
 
-// Lazy load service pages (non-critical for initial load)
+// Lazy load pages
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 const AIChatbotsPage = lazy(() => import('./pages/AIChatbotsPage').then(m => ({ default: m.AIChatbotsPage })));
+const AIVoiceAgentsPage = lazy(() => import('./pages/AIVoiceAgentsPage').then(m => ({ default: m.AIVoiceAgentsPage })));
 const AIVoiceAssistantsPage = lazy(() => import('./pages/AIVoiceAssistantsPage').then(m => ({ default: m.AIVoiceAssistantsPage })));
 const WorkflowAutomationPage = lazy(() => import('./pages/WorkflowAutomationPage').then(m => ({ default: m.WorkflowAutomationPage })));
 const LocationPage = lazy(() => import('./pages/LocationPage').then(m => ({ default: m.LocationPage })));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
 const TermsOfBusinessPage = lazy(() => import('./pages/TermsOfBusinessPage').then(m => ({ default: m.TermsOfBusinessPage })));
+const TradespeoplePage = lazy(() => import('./pages/TradespeoplePage').then(m => ({ default: m.TradespeoplePage })));
+const LawyersPage = lazy(() => import('./pages/LawyersPage').then(m => ({ default: m.LawyersPage })));
+const DentistsPage = lazy(() => import('./pages/DentistsPage').then(m => ({ default: m.DentistsPage })));
+const ConsultantsPage = lazy(() => import('./pages/ConsultantsPage').then(m => ({ default: m.ConsultantsPage })));
+const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })));
+const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage').then(m => ({ default: m.CaseStudiesPage })));
 
 // Global navigate function for easy access in onClick handlers
 const navigate = (path: string) => {
@@ -63,10 +70,24 @@ function App() {
         return <ContactPage />;
       case '/services/ai-chatbots':
         return <AIChatbotsPage />;
+      case '/services/ai-voice-agents':
+        return <AIVoiceAgentsPage />;
       case '/services/ai-voice-assistants':
         return <AIVoiceAssistantsPage />;
       case '/services/workflow-automation':
         return <WorkflowAutomationPage />;
+      case '/who-we-help/tradespeople':
+        return <TradespeoplePage />;
+      case '/who-we-help/lawyers':
+        return <LawyersPage />;
+      case '/who-we-help/dentists':
+        return <DentistsPage />;
+      case '/who-we-help/consultants':
+        return <ConsultantsPage />;
+      case '/about':
+        return <AboutPage />;
+      case '/case-studies':
+        return <CaseStudiesPage />;
       case '/privacy-policy':
         return <PrivacyPolicyPage />;
       case '/terms-of-business':

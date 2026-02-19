@@ -10,29 +10,29 @@ interface MetaEntry {
 // Static route metadata — keep in sync with SEOHead props in page components
 const ROUTE_META: Record<string, MetaEntry> = {
   '/': {
-    title: 'Antek Automation | AI Automation Agency UK | Business Growth',
+    title: 'AI Automation Agency UK | Antek Automation',
     description:
-      'Missing calls = lost customers | AI voice assistants & chatbots capture every lead 24/7 | UK automation agency for service businesses',
+      'We build AI voice agents, chatbots and automated workflows for UK service businesses and professionals. Less admin. More of the work you\'re actually good at.',
   },
   '/contact': {
-    title: 'Contact Antek Automation | AI Automation Agency UK | Free Audit',
+    title: 'Contact Us | Antek Automation | AI Agency UK',
     description:
       'Talk to us about AI automation | Capture every customer call 24/7 | Expert setup & support for UK service businesses | Free consultation',
   },
   '/services/ai-chatbots': {
-    title: 'AI Chatbots | Antek Automation | AI Automation Agency UK',
+    title: 'AI Chatbots for UK Businesses | Antek Automation',
     description:
-      'AI chatbots that capture leads 24/7 | Answer FAQs & book appointments automatically | Never miss a customer inquiry again | UK service businesses',
+      'AI chatbots for websites and WhatsApp. Captures enquiries, qualifies leads, answers common questions — while you\'re working. Built for UK service businesses.',
   },
   '/services/ai-voice-assistants': {
-    title: 'Voice Automation Systems | AI Phone Agents | Antek Automation UK',
+    title: 'AI Voice Assistants | Antek Automation UK',
     description:
       'AI voice agents that answer calls 24/7 | Book appointments automatically | Never miss a call again | Boost revenue for UK service businesses',
   },
   '/services/workflow-automation': {
-    title: 'Workflow Automation | Business Process Automation | Antek Automation UK',
+    title: 'Workflow Automation for UK Businesses | Antek Automation',
     description:
-      'Automate repetitive tasks & eliminate manual work | Connect your business tools | Save hours every week | Transform operations for UK service businesses',
+      'Workflow automation built on n8n. Connects your tools, removes repetitive admin, and runs in the background. Built for UK service businesses.',
   },
   '/privacy-policy': {
     title: 'Privacy Policy | Antek Automation',
@@ -44,49 +44,84 @@ const ROUTE_META: Record<string, MetaEntry> = {
     description:
       'Terms of Business for Antek Automation. Read our terms and conditions for AI automation services.',
   },
+  '/services/ai-voice-agents': {
+    title: 'AI Voice Agents for UK Businesses | Antek Automation',
+    description:
+      'AI voice agents that answer your calls 24/7. Books appointments, handles enquiries, sounds human. Certified Retell AI Gold Partner. UK businesses.',
+  },
+  '/who-we-help/tradespeople': {
+    title: 'AI Automation for Tradespeople UK | Antek Automation',
+    description:
+      'You can\'t answer your phone mid-job. AI voice agents and chatbots built for UK tradespeople — plumbers, electricians, HVAC and more.',
+  },
+  '/who-we-help/lawyers': {
+    title: 'AI Automation for Law Firms & Solicitors UK',
+    description:
+      'AI voice agents and chatbots for small law firms and solicitors. Client intake, appointment booking and enquiries handled automatically.',
+  },
+  '/who-we-help/dentists': {
+    title: 'AI Automation for Dental Practices UK | Antek',
+    description:
+      'AI voice agents and chatbots for dental practices. Appointment bookings, cancellations, new patient enquiries — handled automatically.',
+  },
+  '/who-we-help/consultants': {
+    title: 'AI Automation for Consultants & Freelancers UK',
+    description:
+      'AI automation for consultants and freelancers. Stop losing enquiries to slow responses. Chatbots, voice agents and workflows built around how you work.',
+  },
+  '/about': {
+    title: 'About Antek Automation | UK AI Automation Agency',
+    description:
+      'Small UK agency building AI voice agents, chatbots and workflow automation for service businesses. Retell AI Gold Partner. Based in Hampshire.',
+  },
+  '/case-studies': {
+    title: 'Case Studies | AI Automation Results | Antek Automation',
+    description:
+      'How UK service businesses use AI voice agents, chatbots and workflow automation to stop losing enquiries. Real examples from trades, legal and dental.',
+  },
 };
 
 // Location page metadata — city slug → meta
 const LOCATION_META: Record<string, MetaEntry> = {
   london: {
-    title: 'AI Automation Agency London | Antek Automation | Business Growth',
+    title: 'AI Automation Agency London | Antek Automation',
     description:
-      'AI voice agents & chatbots for London | Answer every call 24/7 | Capture leads & book appointments | Antek Automation UK',
+      'AI voice agents & chatbots for London businesses. Answer every call 24/7, capture leads & book appointments. Antek Automation UK.',
   },
   birmingham: {
-    title: 'AI Automation Agency Birmingham | Antek Automation | Business Growth',
+    title: 'AI Automation Agency Birmingham | Antek Automation',
     description:
-      'AI voice agents & chatbots for Birmingham | Never miss a call again | Serve all West Midlands 24/7 | Antek Automation UK',
+      'AI voice agents & chatbots for Birmingham. Never miss a call again. Serve all West Midlands 24/7. Antek Automation UK.',
   },
   manchester: {
-    title: 'AI Automation Agency Manchester | Antek Automation | Business Growth',
+    title: 'AI Automation Agency Manchester | Antek Automation',
     description:
-      'AI voice agents & chatbots for Manchester | Handle calls from Greater Manchester 24/7 | Capture every lead | Antek Automation UK',
+      'AI voice agents & chatbots for Manchester. Handle calls from Greater Manchester 24/7. Capture every lead. Antek Automation UK.',
   },
   leeds: {
-    title: 'AI Automation Agency Leeds | Antek Automation | Business Growth',
+    title: 'AI Automation Agency Leeds | Antek Automation',
     description:
-      'AI voice agents & chatbots for Leeds | Answer calls 24/7 | Serve all West Yorkshire | Antek Automation UK',
+      'AI voice agents & chatbots for Leeds. Answer calls 24/7. Serve all West Yorkshire. Antek Automation UK.',
   },
   liverpool: {
-    title: 'AI Automation Agency Liverpool | Antek Automation | Business Growth',
+    title: 'AI Automation Agency Liverpool | Antek Automation',
     description:
-      'AI voice agents & chatbots for Liverpool | Handle calls across Merseyside 24/7 | Never miss business again | Antek Automation UK',
+      'AI voice agents & chatbots for Liverpool. Handle calls across Merseyside 24/7. Never miss business again. Antek Automation UK.',
   },
   glasgow: {
-    title: 'AI Automation Agency Glasgow | Antek Automation | Business Growth',
+    title: 'AI Automation Agency Glasgow | Antek Automation',
     description:
-      'AI voice agents & chatbots for Glasgow | Answer calls 24/7 across Scotland | Capture every customer | Antek Automation UK',
+      'AI voice agents & chatbots for Glasgow. Answer calls 24/7 across Scotland. Capture every customer. Antek Automation UK.',
   },
   newcastle: {
-    title: 'AI Automation Agency Newcastle | Antek Automation | Business Growth',
+    title: 'AI Automation Agency Newcastle | Antek Automation',
     description:
-      'AI voice agents & chatbots for Newcastle | Handle calls across Northeast 24/7 | Book appointments automatically | Antek Automation UK',
+      'AI voice agents & chatbots for Newcastle. Handle calls across the Northeast 24/7. Book appointments automatically. Antek Automation UK.',
   },
   hampshire: {
-    title: 'AI Automation Agency Hampshire | Antek Automation | Business Growth',
+    title: 'AI Automation Agency Hampshire | Antek Automation',
     description:
-      'AI voice agents & chatbots for Hampshire | Answer every call 24/7 | Capture leads & book appointments | Antek Automation UK',
+      'AI voice agents & chatbots for Hampshire businesses. Answer every call 24/7, capture leads & book appointments. Antek Automation UK.',
   },
 };
 

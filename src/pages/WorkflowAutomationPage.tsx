@@ -1,11 +1,6 @@
-import { useState, lazy, Suspense } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
-import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
-
-// Lazy load voice chat component (only needed when user clicks demo)
-const VoiceChat = lazy(() => import('../components/VoiceChat').then(m => ({ default: m.VoiceChat })));
 
 const navigate = (path: string) => {
   window.history.pushState(null, '', path);
@@ -13,377 +8,304 @@ const navigate = (path: string) => {
 };
 
 export function WorkflowAutomationPage() {
-  const [isVoiceChatOpen, setIsVoiceChatOpen] = useState(false);
-
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Services', url: '/#services' },
     { name: 'Workflow Automation', url: '/services/workflow-automation' },
   ];
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Workflow Automation for UK Businesses',
+    provider: {
+      '@type': 'Organization',
+      name: 'Antek Automation',
+      url: 'https://www.aiautomationagencyuk.com',
+    },
+    description: 'Workflow automation built on n8n. Connects your tools, removes repetitive admin, and runs in the background without you touching it. Built for UK service businesses.',
+    areaServed: 'GB',
+  };
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is n8n?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'n8n is a workflow automation tool — the thing that connects your apps and makes them work together automatically. When something happens in one system, n8n triggers the right response in another. We use it because it\'s flexible, self-hostable, and doesn\'t charge per task.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do I need technical knowledge to use it?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. We build the workflows, test them, and run them. You just see the output — the notifications, the updated records, the automated messages. You don\'t need to touch the system at all unless you want to.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What tools does it connect to?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Most things with an API — which covers the vast majority of business software. Gmail, Outlook, Google Calendar, WhatsApp, Xero, QuickBooks, Stripe, GoCardless, Jobber, Tradify, WordPress, Airtable, Notion, Slack. If your tools can send or receive data, n8n can usually connect them.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How long does setup take?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Simple workflows can be built and live within a week. More complex setups — multiple tools, conditional logic, custom integrations — take 2–3 weeks. We\'ll tell you what to expect before we start.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What happens if something breaks?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We monitor workflows and fix anything that stops working. Tools update, APIs change, things break occasionally — that\'s part of what the ongoing retainer covers.',
+        },
+      },
+    ],
+  };
+
   return (
     <div className="bg-off-white">
       <SEOHead
-        title="Workflow Automation | Business Process Automation | Antek Automation UK"
-        description="Automate repetitive tasks & eliminate manual work | Connect your business tools | Save hours every week | Transform operations for UK service businesses"
+        title="Workflow Automation for UK Businesses | Antek Automation"
+        description="Workflow automation built on n8n. Connects your tools, removes repetitive admin, and runs in the background. Built for UK service businesses."
         path="/services/workflow-automation"
         breadcrumbs={breadcrumbs}
-        keywords="workflow automation, business process automation, process automation, workflow management, automation software, workflow optimization"
+        schema={[serviceSchema, faqSchema]}
       />
-      {/* Hero Section */}
+
+      {/* Hero */}
       <section className="bg-warm-beige border-b-3 border-charcoal">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-wide text-charcoal mb-4 font-black">
-              BUSINESS PROCESS AUTOMATION | 20 HOURS SAVED WEEKLY | AI AUTOMATION AGENCY UK
+              Services → Workflow Automation
             </p>
-            <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              Workflow Automation Solutions
+            <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-8 leading-tight">
+              Workflow Automation for UK Businesses
             </h1>
-            <p className="text-lg text-charcoal leading-normal mb-8">
-              Our AI automation agency builds custom business process automation that connects your tools and eliminates repetitive work. Stop manually copying data between systems, sending the same emails, or chasing payments. Save 20 hours weekly and focus on growth.
+            <p className="text-lg text-charcoal leading-normal mb-10">
+              Most businesses have the same problem: information in one system that needs to be somewhere else, reminders that need to go out, records that need updating, follow-ups that need sending. All of it done manually. All of it takeable off your plate.
             </p>
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-wrap">
-              <button
-                onClick={() => document.getElementById('popular-workflows')?.scrollIntoView({ behavior: 'smooth' })}
-                className="relative group text-left"
-              >
-                {/* Animated background glow */}
-                <div className="absolute -inset-1 bg-terracotta blur-sm group-hover:opacity-40 transition-opacity duration-300 rounded-sm animate-pulse opacity-10"></div>
-
-                {/* Main button */}
-                <div className="relative px-6 md:px-8 py-3 md:py-4 bg-terracotta border-3 border-charcoal shadow-brutal-sm hover:shadow-brutal-lg transition-all duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1 active:translate-x-0 active:translate-y-0 active:shadow-brutal-xs">
-                  <div className="font-black uppercase text-sm md:text-base text-off-white tracking-tight-lg">
-                    See What We Automate
-                  </div>
-                  <div className="text-xs text-off-white mt-1">
-                    Common workflows for UK trades
-                  </div>
-                </div>
-              </button>
-
-              <button
-                onClick={() => setIsVoiceChatOpen(true)}
-                className="relative group text-left"
-              >
-                {/* Animated background glow */}
-                <div className="absolute -inset-1 bg-soft-sage blur-sm group-hover:opacity-40 transition-opacity duration-300 rounded-sm animate-pulse opacity-10"></div>
-
-                {/* Main button */}
-                <div className="relative px-6 md:px-8 py-3 md:py-4 bg-soft-sage border-3 border-charcoal shadow-brutal-sm hover:shadow-brutal-lg transition-all duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1 active:translate-x-0 active:translate-y-0 active:shadow-brutal-xs">
-                  {/* Live badge */}
-                  <div className="absolute -top-3 -right-3 flex items-center space-x-1 bg-soft-sage border-2 border-charcoal px-2 py-1 rounded-full">
-                    <span className="w-2 h-2 bg-charcoal rounded-full animate-pulse"></span>
-                    <span className="text-xs font-black uppercase text-charcoal">Live</span>
-                  </div>
-
-                  <div className="font-black uppercase text-sm md:text-base text-charcoal tracking-tight-lg">
-                    🎙️ Try Our Voice AI Agent Live
-                  </div>
-                  <div className="text-xs text-charcoal mt-1">
-                    Hear the quality of AI we build • No signup • 🟢 Available 24/7
-                  </div>
-                </div>
-              </button>
-
-              <button
-                onClick={() => navigate('/contact')}
-                className="relative group text-left"
-              >
-                {/* Animated background glow */}
-                <div className="absolute -inset-1 bg-mid-gray blur-sm group-hover:opacity-40 transition-opacity duration-300 rounded-sm animate-pulse opacity-10"></div>
-
-                {/* Main button */}
-                <div className="relative px-6 md:px-8 py-3 md:py-4 bg-off-white border-3 border-charcoal shadow-brutal-sm hover:shadow-brutal-lg transition-all duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1 active:translate-x-0 active:translate-y-0 active:shadow-brutal-xs">
-                  <div className="font-black uppercase text-sm md:text-base text-charcoal tracking-tight-lg">
-                    Get Custom Quote
-                  </div>
-                  <div className="text-xs text-charcoal mt-1">
-                    Discuss your needs
-                  </div>
-                </div>
-              </button>
+            <div className="flex flex-col md:flex-row gap-4">
+              <Button variant="primary" onClick={() => navigate('/contact')}>Book a Call →</Button>
+              <Button variant="secondary" onClick={() => navigate('/contact')}>Tell Us What You Need</Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What Is n8n */}
+      {/* What We Automate */}
       <section className="py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-6 md:px-12">
-          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-6">
-            What Is n8n?
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-12">
+            What We Automate
           </h2>
-          <div className="space-y-4 text-charcoal leading-normal text-lg mb-8">
-            <p>
-              n8n is a powerful workflow automation tool that connects your business systems and makes them work together automatically. Think of it as the "glue" between your apps.
-            </p>
-            <p>
-              <strong>Example:</strong> When a new lead fills out your contact form, n8n can automatically add them to your CRM, send you a Slack notification, create a task in your project management tool, and send the customer a welcome email—all without you lifting a finger.
-            </p>
-            <p>
-              We build these workflows for you, tailored to your exact business processes.
-            </p>
-          </div>
-
-          <div className="bg-success-green border-3 border-charcoal p-6">
-            <p className="text-off-white font-black text-xl uppercase mb-2">One-time setup, runs forever</p>
-            <p className="text-off-white leading-normal">
-              Unlike monthly SaaS tools like Zapier, n8n workflows are yours to keep. Pay once, automate forever. No recurring costs.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Workflows */}
-      <section id="popular-workflows" className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Popular Workflows
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card hover>
-              <Icon letter="L" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Lead Management
-              </h3>
-              <p className="text-charcoal leading-normal">
-                New leads from your website, Facebook, or phone system automatically go into your CRM with proper tagging, assignment, and follow-up reminders.
-              </p>
-            </Card>
-
-            <Card hover>
-              <Icon letter="C" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Appointment Automation
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Send automatic booking confirmations, reminders (24hr and 2hr before), post-visit follow-ups, and review requests without manual work.
-              </p>
-            </Card>
-
-            <Card hover>
-              <Icon letter="I" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Invoicing & Payments
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Auto-generate invoices when jobs are marked complete, send payment reminders for overdue invoices, and log payments in your accounting software.
-              </p>
-            </Card>
-
-            <Card hover>
-              <Icon letter="M" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Customer Communication
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Send personalized emails or SMS based on customer actions: welcome sequences, abandoned quote follow-ups, birthday messages, service reminders.
-              </p>
-            </Card>
-
-            <Card hover>
-              <Icon letter="R" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Reporting & Admin
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Daily/weekly reports sent to your inbox: new leads, revenue, pending invoices, upcoming appointments. All your metrics in one place, automatically.
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Tools We Connect */}
-      <section className="py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Tools We Connect
-            </h2>
-            <p className="text-lg text-charcoal">
-              n8n integrates with 400+ apps. Here are the most common for UK service businesses:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              'Google Calendar',
-              'Gmail / Outlook',
-              'WhatsApp / SMS',
-              'Xero / QuickBooks',
-              'Stripe / GoCardless',
-              'Jobber / Tradify',
-              'WordPress / Wix',
-              'Slack / Microsoft Teams',
-            ].map((tool, index) => (
-              <Card key={index}>
-                <p className="text-charcoal font-black text-center">{tool}</p>
-              </Card>
-            ))}
-          </div>
-
-          <p className="text-center text-charcoal mt-8">
-            Don't see your tool? We can connect nearly anything with an API or webhook.
-          </p>
-        </div>
-      </section>
-
-      {/* Testimonial */}
-      <section className="bg-peach border-y-3 border-charcoal py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-6 md:px-12">
-          <Card>
-            <div className="border-l-4 border-charcoal pl-6">
-              <p className="text-lg text-charcoal leading-normal mb-4 italic">
-                "We were spending 15+ hours every week on admin: copying customer details between systems, sending reminder emails, chasing invoices. Antek built workflows that do all of it automatically. We've reclaimed nearly a full work week—and that time now goes into actually growing the business."
-              </p>
-              <p className="font-black text-charcoal uppercase text-sm">
-                — Sarah P., Cleaning Company Owner, Leeds
-              </p>
-            </div>
-          </Card>
-        </div>
-      </section>
-
-      {/* Package Options */}
-      <section className="py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-6">
-              Package Options
-            </h2>
-            <p className="text-2xl font-black text-success-green mb-8">
-              Pay once, automate forever (no monthly fees)
-            </p>
-          </div>
-
           <div className="grid md:grid-cols-3 gap-8">
             <Card>
-              <div className="text-center mb-6">
-                <h3 className="font-black text-3xl uppercase text-charcoal mb-4">Small</h3>
-              </div>
-              <ul className="space-y-3 text-charcoal mb-8">
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>2-3 simple workflows</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Connect 2-3 tools</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Basic automation setup</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>30 days support</span>
-                </li>
-              </ul>
-              <Button variant="secondary" className="w-full" onClick={() => navigate('/contact')}>
-                Get Quote
-              </Button>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">Lead Management</h3>
+              <p className="text-charcoal leading-normal">
+                New enquiry comes in — from your website, a chatbot, a phone call. It goes straight into your CRM, you get notified, and a follow-up is scheduled. No manual entry.
+              </p>
             </Card>
-
-            <Card className="bg-soft-sage">
-              <div className="text-center mb-2">
-                <div className="inline-block bg-terracotta text-off-white px-4 py-1 font-black text-sm uppercase mb-4">
-                  Most Popular
-                </div>
-              </div>
-              <div className="text-center mb-6">
-                <h3 className="font-black text-3xl uppercase text-charcoal mb-4">Standard</h3>
-              </div>
-              <ul className="space-y-3 text-charcoal mb-8">
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>5-7 custom workflows</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Connect 4-6 tools</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Complex logic & branching</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>90 days support</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Training session included</span>
-                </li>
-              </ul>
-              <Button variant="primary" className="w-full" onClick={() => navigate('/contact')}>
-                Get Quote
-              </Button>
-            </Card>
-
             <Card>
-              <div className="text-center mb-6">
-                <h3 className="font-black text-3xl uppercase text-charcoal mb-4">Complete</h3>
-              </div>
-              <ul className="space-y-3 text-charcoal mb-8">
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Unlimited workflows</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Full business automation</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Custom integrations & APIs</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>6 months support</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="text-success-green">✓</span>
-                  <span>Dedicated implementation</span>
-                </li>
-              </ul>
-              <Button variant="secondary" className="w-full" onClick={() => navigate('/contact')}>
-                Get Quote
-              </Button>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">Appointment Reminders</h3>
+              <p className="text-charcoal leading-normal">
+                Booking confirmed. 24 hours before: reminder sent. 2 hours before: another one. No-show rate drops. You didn't do anything.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">Invoicing & Payments</h3>
+              <p className="text-charcoal leading-normal">
+                Job marked complete. Invoice generated. Sent to client. Overdue after 7 days: reminder goes out. Logged in your accounting software. All automatic.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">Client Onboarding</h3>
+              <p className="text-charcoal leading-normal">
+                New client signs. Welcome email goes out. Intake form is sent. Task created in your project management tool. Everything you'd do manually, done for you.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">Review Requests</h3>
+              <p className="text-charcoal leading-normal">
+                Job done. 48 hours later: a message asking for a review. Goes to the right platform — Google, Trustpilot, wherever matters for your business. Happens every time, not just when you remember.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">Reporting</h3>
+              <p className="text-charcoal leading-normal">
+                Weekly summary of leads, revenue, outstanding invoices — pulled from your tools and sent to your inbox. You start Monday knowing where you stand.
+              </p>
             </Card>
           </div>
-
-          <p className="text-center text-charcoal font-black text-lg mt-12">
-            Custom pricing based on your specific automation needs
-          </p>
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Why n8n */}
+      <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="max-w-3xl">
+            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-8">
+              Why n8n
+            </h2>
+            <div className="space-y-6 text-lg text-charcoal leading-normal">
+              <p>
+                n8n is the tool we build workflows on. It connects to most business software — Gmail, Google Calendar, WhatsApp, Xero, Stripe, Jobber, Airtable, Slack, and a few hundred others.
+              </p>
+              <p>
+                We use n8n specifically because it's self-hostable, which means your data stays on your server rather than going through a third-party's infrastructure. For businesses that handle client information, that matters.
+              </p>
+              <p>
+                It's also more flexible than tools like Zapier — the logic can be more complex, the integrations more specific to what you actually need. Less off-the-shelf, more built to fit.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What It's Not */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="max-w-3xl">
+            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-8">
+              What It's Not
+            </h2>
+            <div className="space-y-6 text-lg text-charcoal leading-normal">
+              <p>
+                It's not magic. If your underlying process is broken or your data is a mess, automation makes that more visible faster. We sometimes tell people to fix the process first.
+              </p>
+              <p>
+                It's not a replacement for everything human. Automation handles the predictable, repetitive parts. Anything that requires judgement, relationships, or genuine expertise stays with you.
+              </p>
+              <p>
+                It's not always the right answer. If you're a very small operation with low volume, manual might be fine. We'll tell you that honestly rather than build something you don't actually need.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How We Work */}
+      <section className="bg-warm-beige border-y-3 border-charcoal py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="max-w-3xl">
+            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-8">
+              How We Work
+            </h2>
+            <div className="space-y-6 text-lg text-charcoal leading-normal">
+              <p>
+                We start by understanding what's taking up time. Not what you think should be automated, but what you actually spend hours on that produces nothing valuable. We map that out.
+              </p>
+              <p>
+                Then we build the workflows, test them properly, and hand over something that works. We document what we've built so you understand what's running. You're not dependent on a black box.
+              </p>
+              <p>
+                After launch, we monitor and maintain. APIs change, tools update, things break. That's part of the ongoing retainer. You don't have to think about it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Who Uses This */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-12">
+            Who Uses This
+          </h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { label: 'Tradespeople', desc: 'Quoting, invoicing, reminders — all the paperwork that piles up.', href: '/who-we-help/tradespeople' },
+              { label: 'Lawyers', desc: 'Client intake, follow-ups, deadline reminders, billing updates.', href: '/who-we-help/lawyers' },
+              { label: 'Dental Practices', desc: 'Appointment reminders, recall sequences, patient comms.', href: '/who-we-help/dentists' },
+              { label: 'Consultants', desc: 'Onboarding, follow-up sequences, the recurring admin of client work.', href: '/who-we-help/consultants' },
+            ].map((item) => (
+              <button
+                key={item.href}
+                onClick={() => navigate(item.href)}
+                className="bg-white border-3 border-charcoal shadow-brutal p-8 text-left hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-brutal-lg transition-all duration-200 cursor-pointer w-full"
+              >
+                <h3 className="font-black text-xl uppercase text-charcoal mb-2">{item.label}</h3>
+                <p className="text-sm text-charcoal leading-normal">{item.desc}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-12">
+            Common Questions
+          </h2>
+          <div className="max-w-3xl space-y-8">
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                What is n8n?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                A workflow automation tool — the thing that connects your apps and makes them work together automatically. When something happens in one system, n8n triggers the right response in another. We use it because it's flexible, self-hostable, and doesn't charge per task.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                Do I need technical knowledge to use it?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                No. We build the workflows, test them, and run them. You just see the output — the notifications, the updated records, the automated messages. You don't need to touch the system at all unless you want to.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                What tools does it connect to?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                Most things with an API — Gmail, Outlook, Google Calendar, WhatsApp, Xero, QuickBooks, Stripe, GoCardless, Jobber, Tradify, WordPress, Airtable, Notion, Slack. If your tools can send or receive data, n8n can usually connect them.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                How long does setup take?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                Simple workflows can be built and live within a week. More complex setups — multiple tools, conditional logic, custom integrations — take 2–3 weeks. We'll tell you what to expect before we start.
+              </p>
+            </Card>
+            <Card>
+              <h3 className="font-black text-xl uppercase text-charcoal mb-3">
+                What happens if something breaks?
+              </h3>
+              <p className="text-charcoal leading-normal">
+                We monitor workflows and fix anything that stops working. Tools update, APIs change, things break occasionally — that's part of what the ongoing retainer covers.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
       <section className="bg-charcoal py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-off-white mb-6">
-            Ready to Reclaim Your Time?
-          </h2>
-          <p className="text-lg text-off-white leading-normal mb-8">
-            Book a free consultation and we'll identify which tasks in your business can be automated
+          <p className="text-lg text-off-white leading-normal mb-8 max-w-2xl mx-auto">
+            If you're spending time on things that should happen automatically, book a 30-minute call. We'll work through what's worth automating and what isn't.
           </p>
           <Button variant="primary" className="text-lg px-10" onClick={() => navigate('/contact')}>
-            Book Free Consultation
+            Book a Call →
           </Button>
         </div>
       </section>
-
-      {/* Voice Chat Modal */}
-      {isVoiceChatOpen && (
-        <Suspense fallback={null}>
-          <VoiceChat isOpen={isVoiceChatOpen} onClose={() => setIsVoiceChatOpen(false)} />
-        </Suspense>
-      )}
     </div>
   );
 }

@@ -1,10 +1,7 @@
 import { useState, lazy, Suspense } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
-import { Icon } from '../components/Icon';
 import { SEOHead } from '../components/SEOHead';
-import { ChatbotDemoButton } from '../components/ChatbotDemoButton';
-import { VoiceAgentDemoButton } from '../components/VoiceAgentDemoButton';
 import { getCityData } from '../data/cities';
 
 // Lazy load voice chat component (only needed when user clicks demo)
@@ -33,7 +30,7 @@ export function LocationPage({ citySlug }: LocationPageProps) {
           <p className="text-charcoal mb-8">
             We couldn't find information for this location.
           </p>
-          <Button variant="primary" onClick={() => (navigate('/'))}>
+          <Button variant="primary" onClick={() => navigate('/')}>
             Return Home
           </Button>
         </div>
@@ -47,50 +44,125 @@ export function LocationPage({ citySlug }: LocationPageProps) {
     { name: city.name, url: `/locations/${city.slug}` },
   ];
 
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Antek Automation',
+    description: `AI automation agency serving businesses in ${city.name} — voice agents, chatbots and workflow automation.`,
+    url: 'https://www.aiautomationagencyuk.com',
+    telephone: '+443330389960',
+    email: 'hello@antekautomation.com',
+    areaServed: [city.name, city.region],
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'GB',
+    },
+    serviceType: ['AI Voice Agents', 'AI Chatbots', 'Workflow Automation'],
+  };
+
   return (
     <div className="bg-off-white">
       <SEOHead
-        title={`AI Automation Agency ${city.name} | Antek Automation | Business Growth`}
-        description={city.metaDescription}
+        title={`AI Automation Agency Serving ${city.name} | Antek Automation`}
+        description={`We work with businesses in ${city.name} — voice agents, chatbots and workflow automation. UK-wide agency. Book a call.`}
         path={`/locations/${city.slug}`}
         breadcrumbs={breadcrumbs}
+        schema={localBusinessSchema}
       />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="bg-warm-beige border-b-3 border-charcoal">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-wide text-charcoal mb-4 font-black">
-              AI AUTOMATION | {city.name.toUpperCase()} | UK AGENCY
+              Serving {city.name} | {city.region}
             </p>
             <h1 className="font-black text-5xl md:text-6xl uppercase tracking-tight-xl text-charcoal mb-6 leading-tight">
-              AI Automation Agency {city.name} | Antek Automation
+              AI Automation Agency Serving {city.name}
             </h1>
             <p className="text-lg text-charcoal leading-normal mb-4">
               {city.localContext}
             </p>
-            <p className="text-lg text-charcoal leading-normal mb-8">
+            <p className="text-lg text-charcoal leading-normal mb-10">
               {city.heroDescription}
             </p>
-            <div className="mb-6">
-              <p className="text-sm font-black uppercase text-charcoal mb-4">Try our AI in action →</p>
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-              <VoiceAgentDemoButton onClick={() => setIsVoiceChatOpen(true)} />
-              <ChatbotDemoButton onClick={() => window.dispatchEvent(new Event('openChatbot'))} />
+            <div className="flex flex-col md:flex-row gap-4">
+              <Button variant="secondary" onClick={() => navigate('/contact')}>
+                Book a Call →
+              </Button>
+              <Button variant="primary" onClick={() => setIsVoiceChatOpen(true)}>
+                Try the Voice Agent
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Services */}
       <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Why {city.name} Businesses Choose Us
-            </h2>
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-12">
+            What We Build for {city.name} Businesses
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card hover>
+              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+                AI Voice Agents
+              </h3>
+              <p className="text-charcoal leading-normal mb-6">
+                Your phone answered 24/7. Books appointments, captures enquiries, handles the basics. Sounds human. Doesn't take sick days.
+              </p>
+              <Button
+                variant="primary"
+                className="w-full"
+                onClick={() => navigate('/services/ai-voice-agents')}
+              >
+                How It Works
+              </Button>
+            </Card>
+
+            <Card hover>
+              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+                AI Chatbots
+              </h3>
+              <p className="text-charcoal leading-normal mb-6">
+                Website or WhatsApp. Answers questions, qualifies leads, collects contact details — while you're actually working.
+              </p>
+              <Button
+                variant="primary"
+                className="w-full"
+                onClick={() => navigate('/services/ai-chatbots')}
+              >
+                How It Works
+              </Button>
+            </Card>
+
+            <Card hover>
+              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+                Workflow Automation
+              </h3>
+              <p className="text-charcoal leading-normal mb-6">
+                The repetitive stuff between your tools — emails, CRM updates, reports, notifications — handled automatically using n8n.
+              </p>
+              <Button
+                variant="primary"
+                className="w-full"
+                onClick={() => navigate('/services/workflow-automation')}
+              >
+                How It Works
+              </Button>
+            </Card>
           </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-12">
+            Why {city.name} Businesses Work With Us
+          </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             {city.whyChooseUs.map((reason, index) => (
@@ -108,87 +180,50 @@ export function LocationPage({ citySlug }: LocationPageProps) {
         </div>
       </section>
 
-      {/* Services */}
-      <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
+      {/* Who We Help */}
+      <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Our Services in {city.name}
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card hover>
-              <Icon letter="V" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                AI Voice Agents
-              </h3>
-              <p className="text-charcoal leading-normal mb-6">
-                Answer every call, book appointments, and handle customer questions 24/7 with natural, human-like conversation.
-              </p>
-              <Button
-                variant="primary"
-                className="w-full"
-                onClick={() => (navigate('/services/ai-voice-assistants'))}
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-8">
+            Who This Is For
+          </h2>
+          <p className="text-lg text-charcoal leading-normal mb-12 max-w-3xl">
+            This works well for businesses where the phone is how most work comes in, where one missed call is a lost client, and where there's no dedicated admin support.
+          </p>
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { label: 'Tradespeople', desc: 'Plumbers, electricians, builders', href: '/who-we-help/tradespeople' },
+              { label: 'Lawyers', desc: 'Small firms and sole practitioners', href: '/who-we-help/lawyers' },
+              { label: 'Dental Practices', desc: 'Bookings, reminders, new patients', href: '/who-we-help/dentists' },
+              { label: 'Consultants', desc: 'Independent professionals', href: '/who-we-help/consultants' },
+            ].map((item) => (
+              <button
+                key={item.href}
+                onClick={() => navigate(item.href)}
+                className="bg-white border-3 border-charcoal shadow-brutal p-10 text-left hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-brutal-lg transition-all duration-200 cursor-pointer w-full"
               >
-                Learn More
-              </Button>
-            </Card>
-
-            <Card hover>
-              <Icon letter="C" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                AI Chatbots
-              </h3>
-              <p className="text-charcoal leading-normal mb-6">
-                Capture leads from your website 24/7, answer FAQs instantly, and book appointments whilst you're busy working.
-              </p>
-              <Button
-                variant="primary"
-                className="w-full"
-                onClick={() => (navigate('/services/ai-chatbots'))}
-              >
-                Learn More
-              </Button>
-            </Card>
-
-            <Card hover>
-              <Icon letter="A" size="lg" />
-              <h3 className="font-black text-2xl uppercase text-charcoal mt-6 mb-4">
-                Workflow Automation
-              </h3>
-              <p className="text-charcoal leading-normal mb-6">
-                Connect your tools and eliminate repetitive tasks. From scheduling to invoicing, automate the busywork.
-              </p>
-              <Button
-                variant="primary"
-                className="w-full"
-                onClick={() => (navigate('/services/workflow-automation'))}
-              >
-                Learn More
-              </Button>
-            </Card>
+                <h3 className="font-black text-xl uppercase text-charcoal mb-2">{item.label}</h3>
+                <p className="text-sm text-charcoal leading-normal">{item.desc}</p>
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Service Areas */}
-      <section className="py-20 md:py-28">
+      {/* Coverage Areas */}
+      <section className="bg-warm-beige border-y-3 border-charcoal py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Areas We Serve in {city.name}
-            </h2>
-            <p className="text-lg text-charcoal max-w-2xl mx-auto">
-              Covering {city.region} and surrounding areas
-            </p>
-          </div>
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
+            Areas We Cover in {city.name}
+          </h2>
+          <p className="text-lg text-charcoal leading-normal mb-12">
+            {city.region} and surrounding areas
+          </p>
 
           <Card>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {city.coverageAreas.map((area, index) => (
                 <div key={index} className="flex items-center space-x-2">
-                  <span className="text-success-green text-xl">✓</span>
+                  <span className="text-terracotta font-black">✓</span>
                   <span className="text-charcoal font-bold">{area}</span>
                 </div>
               ))}
@@ -197,62 +232,56 @@ export function LocationPage({ citySlug }: LocationPageProps) {
         </div>
       </section>
 
-      {/* Industries */}
-      <section className="bg-peach border-y-3 border-charcoal py-20 md:py-28">
+      {/* How It Works */}
+      <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              Industries We Serve in {city.name}
-            </h2>
-          </div>
+          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-12">
+            How We Work
+          </h2>
 
-          <div className="grid md:grid-cols-4 gap-6">
-            <Card hover>
-              <Icon letter="T" size="md" />
-              <h3 className="font-black text-xl uppercase text-charcoal mt-4 mb-2">
-                Tradespeople
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
+                1
+              </div>
+              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+                30-Minute Call
               </h3>
-              <p className="text-sm text-charcoal leading-normal">
-                Plumbers, electricians, builders
+              <p className="text-charcoal leading-normal">
+                We find out what's falling through the cracks. No deck. No pitch. Just a conversation about whether this makes sense for your business.
               </p>
-            </Card>
+            </div>
 
-            <Card hover>
-              <Icon letter="C" size="md" />
-              <h3 className="font-black text-xl uppercase text-charcoal mt-4 mb-2">
-                Cleaning
+            <div className="text-center">
+              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
+                2
+              </div>
+              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+                We Build It
               </h3>
-              <p className="text-sm text-charcoal leading-normal">
-                Residential and commercial cleaning
+              <p className="text-charcoal leading-normal">
+                We build the thing, train it on your business, test it properly, and connect it to your existing number or website. Usually live in 1–2 weeks.
               </p>
-            </Card>
+            </div>
 
-            <Card hover>
-              <Icon letter="P" size="md" />
-              <h3 className="font-black text-xl uppercase text-charcoal mt-4 mb-2">
-                Professional
+            <div className="text-center">
+              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
+                3
+              </div>
+              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
+                We Keep It Running
               </h3>
-              <p className="text-sm text-charcoal leading-normal">
-                Consultants, accountants, legal
+              <p className="text-charcoal leading-normal">
+                Monthly rolling. We monitor, fix anything that needs fixing, and update it as your business changes. You don't manage it. We do.
               </p>
-            </Card>
-
-            <Card hover>
-              <Icon letter="B" size="md" />
-              <h3 className="font-black text-xl uppercase text-charcoal mt-4 mb-2">
-                Beauty
-              </h3>
-              <p className="text-sm text-charcoal leading-normal">
-                Salons, spas, wellness centres
-              </p>
-            </Card>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Testimonial */}
       {city.testimonial && (
-        <section className="py-20 md:py-28">
+        <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
           <div className="max-w-4xl mx-auto px-6 md:px-12">
             <Card>
               <div className="border-l-4 border-charcoal pl-6">
@@ -268,74 +297,36 @@ export function LocationPage({ citySlug }: LocationPageProps) {
         </section>
       )}
 
-      {/* How It Works */}
-      <section className="bg-soft-sage border-y-3 border-charcoal py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-charcoal mb-4">
-              How It Works
-            </h2>
-            <p className="text-lg text-charcoal max-w-2xl mx-auto leading-normal">
-              Getting started with AI automation in {city.name} is simple
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
-                1
-              </div>
-              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
-                Discovery Call
-              </h3>
-              <p className="text-charcoal leading-normal">
-                We learn about your business, customers, and processes. Takes 30 minutes. Zero commitment required.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
-                2
-              </div>
-              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
-                Custom Setup
-              </h3>
-              <p className="text-charcoal leading-normal">
-                We build and train your AI on your services, pricing, and availability. Ready in 1-2 weeks.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-terracotta text-off-white flex items-center justify-center font-black text-4xl border-3 border-charcoal shadow-brutal mx-auto mb-6">
-                3
-              </div>
-              <h3 className="font-black text-2xl uppercase text-charcoal mb-4">
-                Launch & Grow
-              </h3>
-              <p className="text-charcoal leading-normal">
-                Your AI starts working immediately. We monitor, optimise, and help you scale as you grow.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
+      {/* CTA */}
       <section className="bg-charcoal py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-black text-4xl md:text-5xl uppercase tracking-tight-lg text-off-white mb-6">
-            Ready to Automate Your {city.name} Business?
-          </h2>
-          <p className="text-lg text-off-white leading-normal mb-8">
-            Book a free consultation and discover how AI can transform your service business
+          <p className="text-lg text-off-white leading-normal mb-8 max-w-2xl mx-auto">
+            If any of this sounds relevant, book a 30-minute call. We'll tell you honestly whether AI automation makes sense for your business right now.
           </p>
           <Button
             variant="primary"
             className="text-lg px-10"
-            onClick={() => (navigate('/contact'))}
+            onClick={() => navigate('/contact')}
           >
-            Get Started Today
+            Book a Call →
           </Button>
+        </div>
+      </section>
+
+      {/* UK-wide note with anchor link */}
+      <section className="py-12 border-t-3 border-charcoal">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+          <p className="text-charcoal leading-normal">
+            We're a UK-wide{' '}
+            <a
+              href="/"
+              onClick={(e) => { e.preventDefault(); navigate('/'); }}
+              className="font-bold underline hover:text-terracotta transition-colors"
+            >
+              AI automation agency UK
+            </a>{' '}
+            — location doesn't affect how we work. Everything is handled remotely.
+          </p>
         </div>
       </section>
 

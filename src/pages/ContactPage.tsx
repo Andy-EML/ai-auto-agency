@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { ContactFormData } from '../types';
@@ -21,6 +21,60 @@ export function ContactPage() {
     message: '',
     preferredContact: 'either' as 'phone' | 'email' | 'either',
   });
+
+  useEffect(() => {
+    let loaded = false;
+    const target = document.getElementById('cal-inline-30min');
+    if (!target) return;
+
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const w = window as any;
+      w.Cal = w.Cal || function (...args: unknown[]) {
+        const cal = w.Cal;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          const s = document.createElement('script');
+          s.src = 'https://app.cal.com/embed/embed.js';
+          document.head.appendChild(s);
+          cal.loaded = true;
+        }
+        if (args[0] === 'init') {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const api: any = (...a: unknown[]) => api.q.push(a);
+          const ns = args[1] as string;
+          api.q = [];
+          cal.ns[ns] = cal.ns[ns] || api;
+          api.q.push(args);
+          cal.q.push(['initNamespace', ns]);
+          return;
+        }
+        cal.q.push(args);
+      };
+
+      w.Cal('init', '30min', { origin: 'https://app.cal.com' });
+      w.Cal.ns['30min']('inline', {
+        elementOrSelector: '#cal-inline-30min',
+        calLink: 'antek-automation/30min',
+        config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true' },
+      });
+      w.Cal.ns['30min']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
+    };
+
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) { load(); obs.disconnect(); }
+      }, { rootMargin: '200px' });
+      obs.observe(target);
+      return () => obs.disconnect();
+    } else {
+      load();
+    }
+  }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
@@ -114,7 +168,7 @@ export function ContactPage() {
   return (
     <div className="bg-off-white py-20 md:py-28">
       <SEOHead
-        title="Contact Antek Automation | AI Automation Agency UK | Free Audit"
+        title="Contact Us | Antek Automation | AI Agency UK"
         description="Talk to us about AI automation | Capture every customer call 24/7 | Expert setup & support for UK service businesses | Free consultation"
         path="/contact"
         breadcrumbs={breadcrumbs}
@@ -155,6 +209,7 @@ export function ContactPage() {
           </Card>
         </div>
 
+        <div className="max-w-4xl mx-auto space-y-8">
         <Card>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid lg:grid-cols-2 gap-6">
@@ -318,6 +373,19 @@ export function ContactPage() {
             </p>
           </form>
         </Card>
+
+        {/* Cal.com booking embed */}
+        <div className="bg-white border-3 border-charcoal shadow-brutal p-8 md:p-10">
+          <h2 className="font-black text-2xl uppercase text-charcoal mb-2">Book a Call</h2>
+          <p className="text-charcoal text-sm leading-normal mb-6">
+            Pick a time that works for you — 30 minutes, no hard sell.
+          </p>
+          <div
+            id="cal-inline-30min"
+            style={{ width: '100%', minHeight: '500px', overflowX: 'hidden' }}
+          />
+        </div>
+        </div>
       </div>
     </div>
   );
