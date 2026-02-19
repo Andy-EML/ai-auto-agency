@@ -21,23 +21,6 @@ export function WorkflowAutomationPage() {
     { name: 'Workflow Automation', url: '/services/workflow-automation' },
   ];
 
-  const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: 'Workflow Automation Solutions - Antek Automation',
-    description: 'Business process automation that connects your tools, eliminates repetitive work, and saves 20 hours weekly for UK service businesses',
-    areaServed: {
-      '@type': 'Country',
-      name: 'United Kingdom',
-    },
-    serviceType: 'Business Process Automation',
-    provider: {
-      '@type': 'Organization',
-      name: 'Antek Automation',
-      url: 'https://aiautomationagencyuk.com',
-    },
-  };
-
   return (
     <div className="bg-off-white">
       <SEOHead
@@ -45,7 +28,6 @@ export function WorkflowAutomationPage() {
         description="Automate repetitive tasks & eliminate manual work | Connect your business tools | Save hours every week | Transform operations for UK service businesses"
         path="/services/workflow-automation"
         breadcrumbs={breadcrumbs}
-        schema={serviceSchema}
         keywords="workflow automation, business process automation, process automation, workflow management, automation software, workflow optimization"
       />
       {/* Hero Section */}

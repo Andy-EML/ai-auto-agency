@@ -10,12 +10,13 @@ interface SEOHeadProps {
   description: string;
   path: string;
   breadcrumbs?: BreadcrumbItem[];
-  schema?: object;
+  schema?: object | object[];
   ogImage?: string;
   keywords?: string;
+  noIndex?: boolean;
 }
 
-export function SEOHead({ title, description, path, breadcrumbs, schema, ogImage, keywords }: SEOHeadProps) {
+export function SEOHead({ title, description, path, breadcrumbs, schema, ogImage, keywords, noIndex }: SEOHeadProps) {
   useEffect(() => {
     // Set document title
     document.title = title;
@@ -39,6 +40,15 @@ export function SEOHead({ title, description, path, breadcrumbs, schema, ogImage
       }
       metaKeywords.setAttribute('content', keywords);
     }
+
+    // Set or update robots meta tag
+    let metaRobots = document.querySelector('meta[name="robots"]');
+    if (!metaRobots) {
+      metaRobots = document.createElement('meta');
+      metaRobots.setAttribute('name', 'robots');
+      document.head.appendChild(metaRobots);
+    }
+    metaRobots.setAttribute('content', noIndex ? 'noindex, nofollow' : 'index, follow');
 
     // Set viewport and charset (ensure they're present)
     if (!document.querySelector('meta[charset]')) {
@@ -130,8 +140,9 @@ export function SEOHead({ title, description, path, breadcrumbs, schema, ogImage
       breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
     }
 
-    // Add custom schema if provided
+    // Add custom schema if provided (supports single object or array)
     if (schema) {
+      const schemas = Array.isArray(schema) ? schema : [schema];
       let schemaScript = document.getElementById('page-schema') as HTMLScriptElement | null;
       if (!schemaScript) {
         schemaScript = document.createElement('script') as HTMLScriptElement;
@@ -139,7 +150,14 @@ export function SEOHead({ title, description, path, breadcrumbs, schema, ogImage
         schemaScript.type = 'application/ld+json';
         document.head.appendChild(schemaScript);
       }
-      schemaScript.textContent = JSON.stringify(schema);
+      if (schemas.length === 1) {
+        schemaScript.textContent = JSON.stringify(schemas[0]);
+      } else {
+        schemaScript.textContent = JSON.stringify({
+          '@context': 'https://schema.org',
+          '@graph': schemas,
+        });
+      }
     }
 
     // Cleanup function
@@ -154,7 +172,7 @@ export function SEOHead({ title, description, path, breadcrumbs, schema, ogImage
         breadcrumbScript.remove();
       }
     };
-  }, [title, description, path, breadcrumbs, schema, ogImage, keywords]);
+  }, [title, description, path, breadcrumbs, schema, ogImage, keywords, noIndex]);
 
   return null;
 }

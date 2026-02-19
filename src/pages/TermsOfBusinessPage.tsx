@@ -13,6 +13,7 @@ export function TermsOfBusinessPage() {
         description="Terms of Business for Antek Automation. Read our terms and conditions for AI automation services."
         path="/terms-of-business"
         breadcrumbs={breadcrumbs}
+        noIndex={true}
       />
 
       <div className="bg-warm-beige border-b-3 border-charcoal">

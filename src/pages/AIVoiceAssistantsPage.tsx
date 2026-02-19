@@ -22,23 +22,6 @@ export function AIVoiceAssistantsPage() {
     { name: 'AI Voice Assistants', url: '/services/ai-voice-assistants' },
   ];
 
-  const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: 'Voice Automation Systems - Antek Automation',
-    description: 'Professional AI phone agents that answer calls 24/7, book appointments, and handle customer inquiries for UK service businesses',
-    areaServed: {
-      '@type': 'Country',
-      name: 'United Kingdom',
-    },
-    serviceType: 'Voice Automation',
-    provider: {
-      '@type': 'Organization',
-      name: 'Antek Automation',
-      url: 'https://aiautomationagencyuk.com',
-    },
-  };
-
   return (
     <div className="bg-off-white">
       <SEOHead
@@ -46,7 +29,6 @@ export function AIVoiceAssistantsPage() {
         description="AI voice agents that answer calls 24/7 | Book appointments automatically | Never miss a call again | Boost revenue for UK service businesses"
         path="/services/ai-voice-assistants"
         breadcrumbs={breadcrumbs}
-        schema={serviceSchema}
         keywords="voice automation, ai phone agents, voice ai, ai voice assistants, automated call answering, voice bot, phone system automation"
       />
       {/* Hero Section */}

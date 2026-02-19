@@ -29,7 +29,8 @@ export function HomePage() {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'ProfessionalService'],
     name: 'Antek Automation',
-    description: 'AI Automation Agency UK specializing in business automation for service businesses',
+    alternateName: 'AI Automation Agency UK',
+    description: 'UK AI automation agency specialising in voice agents, chatbots and n8n workflow automation for service businesses and professionals',
     url: 'https://www.aiautomationagencyuk.com',
     logo: 'https://www.aiautomationagencyuk.com/logo.svg',
     telephone: '+443330389960',
@@ -38,7 +39,8 @@ export function HomePage() {
       '@type': 'Country',
       name: 'United Kingdom',
     },
-    serviceType: ['AI Automation', 'Business Process Automation', 'Workflow Automation'],
+    knowsAbout: ['AI voice agents', 'AI chatbots', 'n8n workflow automation', 'business process automation'],
+    serviceType: ['AI Voice Agents', 'AI Chatbots', 'Workflow Automation'],
     priceRange: '£500+',
     address: {
       '@type': 'PostalAddress',
@@ -49,13 +51,20 @@ export function HomePage() {
     },
   };
 
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Antek Automation',
+    url: 'https://www.aiautomationagencyuk.com',
+  };
+
   return (
     <div className="bg-off-white">
       <SEOHead
         title="Antek Automation | AI Automation Agency UK | Business Growth"
         description="Missing calls = lost customers | AI voice assistants & chatbots capture every lead 24/7 | UK automation agency for service businesses"
         path="/"
-        schema={organisationSchema}
+        schema={[organisationSchema, websiteSchema]}
         keywords="ai automation agency uk, automation agency, ai automation agency, business automation uk, workflow automation, ai chatbots, voice automation systems"
       />
       <section className="bg-warm-beige border-b-3 border-charcoal">

@@ -1,8 +1,35 @@
 {
+  "redirects": [
+    {
+      "source": "/services/ai-voice-assistants",
+      "destination": "/services/ai-voice-agents",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
+      "source": "/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/logo.svg",
+      "destination": "/logo.svg"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/llms.txt",
+      "destination": "/llms.txt"
+    },
+    {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/api/og"
     }
   ],
   "headers": [

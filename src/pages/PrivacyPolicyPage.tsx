@@ -13,6 +13,7 @@ export function PrivacyPolicyPage() {
         description="Privacy Policy for Antek Automation. Learn how we collect, process, and protect your personal data."
         path="/privacy-policy"
         breadcrumbs={breadcrumbs}
+        noIndex={true}
       />
 
       <div className="bg-warm-beige border-b-3 border-charcoal">

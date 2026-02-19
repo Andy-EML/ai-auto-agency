@@ -16,23 +16,6 @@ export function AIChatbotsPage() {
     { name: 'AI Chatbots', url: '/services/ai-chatbots' },
   ];
 
-  const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: 'AI Lead Automation Chatbots - Antek Automation',
-    description: 'AI chatbots for capturing leads 24/7, answering FAQs, and booking appointments for UK service businesses',
-    areaServed: {
-      '@type': 'Country',
-      name: 'United Kingdom',
-    },
-    serviceType: 'AI Lead Automation',
-    provider: {
-      '@type': 'Organization',
-      name: 'Antek Automation',
-      url: 'https://aiautomationagencyuk.com',
-    },
-  };
-
   return (
     <div className="bg-off-white">
       <SEOHead
@@ -40,7 +23,6 @@ export function AIChatbotsPage() {
         description="AI chatbots that capture leads 24/7 | Answer FAQs & book appointments automatically | Never miss a customer inquiry again | UK service businesses"
         path="/services/ai-chatbots"
         breadcrumbs={breadcrumbs}
-        schema={serviceSchema}
         keywords="ai chatbots, ai lead automation, chatbot for lead generation, customer service automation, conversational ai, ai chatbot for businesses"
       />
       {/* Hero Section */}
