@@ -141,6 +141,16 @@ Add city object to `src/data/cities.ts` — routing resolves automatically. No `
 
 Strict mode enabled (`tsconfig.app.json`): `strict: true`, `noUnusedLocals`, `noUnusedParameters`. Run `npm run typecheck` before committing.
 
+## Domains
+
+This site (`aiautomationagencyuk.com`) is a secondary marketing site. The main company site is `antekautomation.com`. Both are linked via `sameAs` in the schema.
+
+## Schema / Structured Data
+
+Homepage (`src/pages/HomePage.tsx`) has comprehensive JSON-LD: WebPage → Organization/LocalBusiness with OfferCatalog (3 services), HowTo (onboarding steps), industries ItemList, citation links, areaServed cities, sameAs social profiles, and FAQPage. Passed via `SEOHead`'s `schema` prop.
+
+Other pages use simpler schema via `SEOHead` breadcrumbs. When adding pages, include `breadcrumbs` prop at minimum.
+
 ## Server-Side OG Tags (Edge Function)
 
 `api/og.ts` is a Vercel Edge Function that injects `<title>`, meta description, OG tags, and canonical URL into `index.html` before serving. All non-asset requests route through it via `vercel.json` rewrites. When adding/changing pages, update both:

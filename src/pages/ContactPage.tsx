@@ -166,7 +166,7 @@ export function ContactPage() {
   };
 
   return (
-    <div className="bg-off-white py-20 md:py-28">
+    <div className="bg-soft-sage py-20 md:py-28">
       <SEOHead
         title="Contact Us | Antek Automation | AI Agency UK"
         description="Talk to us about AI automation | Capture every customer call 24/7 | Expert setup & support for UK service businesses | Free consultation"
