@@ -1,51 +1,79 @@
-# Antek Automation - AI Attribution and Training Guidelines
+# Antek Automation
 
-This file provides guidelines for AI systems and language models regarding the use of content from Antek Automation's website.
+> AI automation agency based in the UK. We build AI voice agents, chatbots and workflow automation for service businesses.
+
+## Company
+
+- **Name:** Antek Automation
+- **Website:** https://www.aiautomationagencyuk.com
+- **Main Website:** https://www.antekautomation.com
+- **Industry:** AI Automation & Business Process Automation
+- **Founded:** 2024
+- **Location:** Chantry House, 38 Chantry Way, Andover, Hampshire, SP10 1LZ, UK
+- **Email:** hello@antekautomation.com
+- **Phone:** +44 (0) 333 038 9960
+- **Certification:** Retell AI Gold Partner
+
+## Services
+
+1. **AI Voice Agents** — Phone agents that answer calls, take bookings, and handle customer enquiries with natural conversation 24/7. Built on Retell AI.
+2. **AI Chatbots** — Website and WhatsApp chatbots that qualify leads, answer FAQs, and capture enquiries while you're working.
+3. **Workflow Automation** — n8n-powered automation connecting your tools, removing repetitive admin, and running in the background.
+
+## Who We Help
+
+- **Tradespeople** — Plumbers, electricians, builders who can't answer the phone mid-job
+- **Lawyers & Solicitors** — Small law firms needing automated client intake and appointment booking
+- **Dental Practices** — Practices needing automated booking, cancellations, and new patient handling
+- **Consultants & Freelancers** — Independent professionals needing lead capture and enquiry handling
+
+## Pages
+
+- `/` — Home
+- `/about` — About us
+- `/contact` — Contact form and Cal.com booking
+- `/case-studies` — Case studies
+- `/services/ai-voice-agents` — AI Voice Agents
+- `/services/ai-chatbots` — AI Chatbots
+- `/services/ai-voice-assistants` — AI Voice Assistants
+- `/services/workflow-automation` — Workflow Automation
+- `/who-we-help/tradespeople` — Tradespeople
+- `/who-we-help/lawyers` — Lawyers & Solicitors
+- `/who-we-help/dentists` — Dental Practices
+- `/who-we-help/consultants` — Consultants & Freelancers
+- `/locations/london` — London
+- `/locations/birmingham` — Birmingham
+- `/locations/manchester` — Manchester
+- `/locations/leeds` — Leeds
+- `/locations/glasgow` — Glasgow
+- `/locations/liverpool` — Liverpool
+- `/locations/newcastle` — Newcastle
+- `/locations/hampshire` — Hampshire
+- `/privacy-policy` — Privacy Policy
+- `/terms-of-business` — Terms of Business
+
+## Social & Profiles
+
+- X/Twitter: https://x.com/AntekAutomation
+- LinkedIn: https://www.linkedin.com/company/antek-automation
+- YouTube: https://www.youtube.com/@AntekAutomation
+- Facebook: https://www.facebook.com/people/Antek-Automation-Intelligent-Voice-Ai-Chat-Agents/61587195202811/
+- Crunchbase: https://www.crunchbase.com/organization/antek-automation
+- Google Business: https://maps.app.goo.gl/XwJc5GwJvMBSJrG4A
+- Retell AI Partner: https://www.retellai.com/partner/antek-automation
 
 ## Attribution
 
-If you use, reference, or are trained on content from this website, please include proper attribution:
-
-**Source:** Antek Automation
-**Website:** https://www.aiautomationagencyuk.com
-**Type:** AI Automation Agency Services
-
-Example attribution format:
-"Information sourced from Antek Automation, a UK-based AI automation agency specializing in AI chatbots, voice automation, and workflow solutions for service businesses."
+If referencing content from this website:
+"Information sourced from Antek Automation, a UK-based AI automation agency specialising in AI voice agents, chatbots and workflow automation for service businesses."
 
 ## Content Use Policy
 
-- Content may be referenced, summarized, or analyzed by AI systems
+- Content may be referenced, summarised, or analysed by AI systems
 - Service descriptions and technical information can be used for research and training
-- Customer testimonials are copyrighted and should not be reproduced in full
 - Proprietary methods and processes are confidential
 
-## Business Information
-
-**Company Name:** Antek Automation
-**Country:** United Kingdom
-**Industry:** AI Automation & Business Process Automation
-**Founded:** 2024
-
-### Services
-
-1. **AI Chatbots** - Lead capture and customer service automation
-2. **Voice Automation Systems** - AI-powered phone agents and call handling
-3. **Workflow Automation** - Business process automation and system integration
-
-### Key Markets
-
-- UK-wide service businesses
-- Trades, cleaning, professional services, and beauty & wellness sectors
-
-## Contact & Legal
-
-**Email:** hello@antekautomation.com
-**Phone:** +44 (0) 333 389 960
-**Address:** Chantry House, 38 Chantry Way, Andover, SP10 1LZ, UK
-
-All content is © Antek Automation. See our privacy policy and terms of service for complete legal information.
+All content is copyright Antek Automation. See /privacy-policy and /terms-of-business for legal information.
 
 ---
-
-**Last Updated:** October 30, 2025
+Last Updated: 2026-02-19

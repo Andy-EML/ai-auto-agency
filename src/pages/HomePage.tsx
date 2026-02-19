@@ -35,7 +35,7 @@ export function HomePage() {
     alternateName: 'Antek AI Automation',
     headline: 'AI Automation Agency UK',
     alternativeHeadline: 'AI That Works for Your Business',
-    abstract: 'Official website of Antek Automation, an AI automation agency in the UK.',
+    abstract: 'AI automation services by Antek Automation, a UK agency specialising in voice agents, chatbots and workflow automation.',
     description: 'Antek Automation deploys AI chatbots, voice agents, and workflow automation that work 24/7 to capture leads, book appointments, and grow revenue for service businesses by reducing missed calls, slow responses, and administrative burden.',
     accessMode: ['textual', 'visual'],
     inLanguage: 'en-GB',
@@ -205,6 +205,7 @@ export function HomePage() {
         'Business process automation',
       ],
       sameAs: [
+        'https://www.antekautomation.com',
         'https://x.com/AntekAutomation',
         'https://www.youtube.com/@AntekAutomation',
         'https://www.linkedin.com/company/antek-automation',
